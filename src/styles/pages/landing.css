@@ -1,0 +1,44 @@
+#page-landing {
+  background: linear-gradient(90deg, rgba(255,246,121,1) 19%, rgba(251,220,54,1) 51%, rgba(251,219,51,1) 100%);
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#page-landing .content-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1100px;
+
+  height: 100%;
+  max-width: 680px;
+
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  justify-content: space-between;
+
+  background: url(../../images/ride.svg) no-repeat 80% center;
+}
+
+.content-wrapper .enter-app {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+
+  width: 80px;
+  height: 80px;
+  background-color: #945FBD;
+  border-radius: 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s;
+}
+
+.content-wrapper .enter-app:hover {
+  background-color: #7D3CAF;
+}
