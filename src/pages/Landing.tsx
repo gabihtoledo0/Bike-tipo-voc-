@@ -1,18 +1,25 @@
 import React from 'react';
 import "../styles/pages/landing.css";
 import { FiArrowRight } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 export default function Landing() {
   return (
     <div id="page-landing">
       <div className="content-wrapper">
         <main>
-          <h1 className="text-gray-600">Leve felicidade para o mundo</h1>
-          <p className="text-gray-600">Visite orfanatos e mude o dia de muitas crianças.</p>
+          <h1 className="text-gray-700">Leve saúde para sua vida</h1>
+          <p className="text-gray-700">Troque o carro por bicicleta e veja o mundo de uma outra forma.</p>
         </main>
-        <a href="" className="enter-app">
+
+        <div className="location">
+          <strong>Springfield</strong>
+          <span>Cidade no Oregon</span>
+        </div>
+
+        <Link to="/app" className="enter-app">
           <FiArrowRight size={26} color="#fff"/>
-        </a>
+        </Link>
       </div>
     </div>
   );
