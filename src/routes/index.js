@@ -1,14 +1,14 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import Landing from "../pages/Landing";
-import OrphanagesMap from "../pages/OrphanagesMap";
+import StationsMap from "../pages/StationsMap";
 
 const Routes = () => {
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Landing} />
-        <Route path="/app" component={OrphanagesMap} />
+        <Route path="/map" component={StationsMap} />
       </Switch>
     </BrowserRouter>
   );
