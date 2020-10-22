@@ -2,12 +2,14 @@ import React from 'react';
 import '../styles/pages/stationsMap.css';
 import { Map, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
+import LogoBike from '../images/logo.svg';
 
 function StationsMap() {
   return (
     <div id="page-map">
       <aside>
         <header>
+          <img src={LogoBike} width="60px" alt="logo bike" />
           <h2 className="text-gray-700">Selecione a estação que desejar</h2>
           <p className="text-gray-700">
             Procure as estações que você queira retirar ou depositar sua bike :)

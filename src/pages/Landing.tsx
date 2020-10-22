@@ -2,11 +2,13 @@ import React from 'react';
 import '../styles/pages/landing.css';
 import { FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import LogoBikeText from '../images/logo-bike.svg';
 
 export default function Landing() {
   return (
     <div id="page-landing">
       <div className="content-wrapper">
+        <img src={LogoBikeText} width="350px" alt="logo bike tipo vc"/>
         <main>
           <h1 className="text-gray-700">Leve saúde para sua vida</h1>
           <p className="text-gray-700">
