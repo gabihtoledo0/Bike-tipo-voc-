@@ -1,0 +1,38 @@
+aside.app-sidebar {
+  position: fixed;
+  height: 100%;
+  padding: 32px 24px;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 246, 121, 1) 19%,
+    rgba(251, 220, 54, 1) 51%,
+    rgba(251, 219, 51, 1) 100%
+  );
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+aside.app-sidebar img {
+  width: 40px;
+}
+
+aside.app-sidebar footer a,
+aside.app-sidebar footer button {
+  width: 48px;
+  height: 48px;
+  border: 0;
+  background-color: #945fbd;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+aside.app-sidebar aside footer a:hover,
+aside.app-sidebar aside footer button:hover {
+  background-color: #7d3caf;
+}

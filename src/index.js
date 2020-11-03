@@ -1,13 +1,11 @@
 import React from 'react';
 import { render } from "react-dom";
+import "./styles/global.css";
+import Routes from "./routes/index";
 
-export function App() {
+export default function App() {
   return (
-    <>
-      <p className="text-purple-500">
-        Oii
-      </p>
-  </>
+    <Routes/>
   );
 }
 
