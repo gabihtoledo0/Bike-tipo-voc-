@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../styles/pages/stationsMap.css';
 import { Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -6,6 +6,7 @@ import logoBike from '../images/logo-64px.svg';
 import Leaflet from 'leaflet';
 import { FiArrowRight } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
+import api from '../services/api';
 
 const mapIcon = Leaflet.icon({
   iconUrl: logoBike,
@@ -15,6 +16,11 @@ const mapIcon = Leaflet.icon({
 });
 
 function StationsMap() {
+  useEffect(() => {
+    api.get('stations').then((response) => {
+      console.log(response);
+    });
+  }, []);
   return (
     <div id="page-map">
       <aside>
@@ -40,11 +46,16 @@ function StationsMap() {
           url={`https://api.mapbox.com/styles/v1/mapbox/streets-v11/tiles/256/{z}/{x}/{y}@2x?access_token=${process.env.REACT_APP_MAPBOX_TOKEN}`}
         />
         <Marker position={[44.0614535, -123.0353531]} icon={mapIcon}>
-          <Popup closeButton={false} minWidth={240} className="map-popup" maxHeight={240}>
+          <Popup
+            closeButton={false}
+            minWidth={240}
+            className="map-popup"
+            maxHeight={240}
+          >
             Estação Quick
-             <Link to="/station/1">
+            <Link to="/station/1">
               <FiArrowRight size={20} color="#fff" />
-             </Link>
+            </Link>
           </Popup>
         </Marker>
       </Map>
