@@ -1,6 +1,6 @@
 import React from 'react';
 import { render } from "react-dom";
-import GlobalStyle from "./styles/global"
+import GlobalStyle from "./assets/styles/global"
 import Routes from "./routes/index";
 
 export default function App() {

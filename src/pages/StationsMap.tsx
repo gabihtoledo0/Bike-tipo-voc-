@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import "../styles/pages/stationsMapStyled.ts"
+import "../assets/styles/pages/stationsMapStyled.ts"
 import { Map, TileLayer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import logoBike from "../images/logo-64px.svg"
@@ -7,8 +7,8 @@ import Leaflet from "leaflet"
 import { FiArrowRight } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import api from "../services/api"
-import { stationsMapStyled } from "../styles/pages/stationsMapStyled"
-import "../styles/pages/stylesPopup.css"
+import { stationsMapStyled } from "../assets/styles/pages/stationsMapStyled"
+import "../assets/styles/pages/stylesPopup.css"
 import Sidebar from "../components/Sidebar"
 
 const mapIcon = Leaflet.icon({

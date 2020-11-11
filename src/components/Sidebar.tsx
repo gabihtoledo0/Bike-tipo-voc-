@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom"
 import logoBike from "../images/logo-64px.svg"
 import styled from "styled-components"
 import tokens from "../config/tokens"
+import Image from "./Image"
 
 type SidebarProps = {
   long?: boolean
@@ -89,7 +90,7 @@ export default function Sidebar(long: SidebarProps) {
       {long ? (
         <SidebarLong>
           <header>
-            <img src={logoBike} width="60px" alt="logo bike" />
+            <Image src={logoBike} width={60} alt="logo bike" />
             <h2 className="text-gray-700">Selecione a estação que desejar</h2>
             <p className="text-gray-700">
               Procure as estações que você queira retirar ou depositar sua bike

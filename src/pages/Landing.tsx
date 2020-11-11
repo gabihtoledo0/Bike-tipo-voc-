@@ -5,6 +5,7 @@ import LogoBikeText from "../images/bike-tipo-vc.svg"
 import Ride from "../images/ride.svg"
 import styled from "styled-components"
 import tokens from "../config/tokens"
+import Image from "../components/Image"
 
 const PageLanding = styled.div`
   background: linear-gradient(
@@ -104,19 +105,21 @@ const PageLanding = styled.div`
       position: relative;
       right: 0;
       bottom: 0;
-
       width: 50px;
       height: 50px;
       background-color: #945fbd;
-      border-radius: 20px;
-
+      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: 0.2s;
+      align-self: flex-end;
 
       @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
         position: absolute;
+        width: 80px;
+        height: 80px;
+        border-radius: 30px;
       }
 
       :hover {
@@ -130,7 +133,7 @@ export default function Landing() {
   return (
     <PageLanding>
       <div className="content-wrapper">
-        <img src={LogoBikeText} alt="logo bike tipo vc" />
+        <Image src={LogoBikeText} alt="logo bike tipo vc" width={160} />
         <main>
           <div className="text-landing">
             <h1 className="text-gray-700">Leve a saúde para sua vida</h1>
@@ -139,7 +142,7 @@ export default function Landing() {
             </p>
           </div>
           <div className="image-landing">
-            <img src={Ride} width={580} alt="mulher andando de bicicleta" />
+            <img src={Ride} width={550} alt="mulher andando de bicicleta" />
           </div>
         </main>
 
