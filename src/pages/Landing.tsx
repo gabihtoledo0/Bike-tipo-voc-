@@ -35,6 +35,10 @@ const PageLanding = styled.div`
     flex-direction: column;
     justify-content: space-between;
 
+    @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
+      height: 100%;
+    }
+
     .location {
       position: absolute;
       right: 0;
@@ -86,6 +90,7 @@ const PageLanding = styled.div`
 
         @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
           position: absolute;
+          max-width: 350px;
           flex-direction: row;
           margin-top: 0;
         }
