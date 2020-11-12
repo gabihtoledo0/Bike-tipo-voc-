@@ -1,8 +1,8 @@
 import React from "react"
 import { FiArrowRight } from "react-icons/fi"
 import { Link } from "react-router-dom"
-import LogoBikeText from "../images/bike-tipo-vc.svg"
-import Ride from "../images/ride.svg"
+import LogoBikeText from "../assets/images/bike-tipo-vc.svg"
+import Ride from "../assets/images/ride.svg"
 import styled from "styled-components"
 import tokens from "../config/tokens"
 import Image from "../components/Image"
@@ -29,8 +29,7 @@ const PageLanding = styled.div`
     position: relative;
     width: 100%;
     max-width: 1150px;
-    height: 100%;
-    max-height: 680px;
+    height: 100vh;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -46,6 +45,11 @@ const PageLanding = styled.div`
       text-align: right;
       color: #945fbd;
 
+      @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+        font-size: 20px;
+        line-height: 30px;
+      }
+
       @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
         font-size: 24px;
         line-height: 34px;
@@ -53,16 +57,32 @@ const PageLanding = styled.div`
     }
 
     main {
-      position: relative;
+      position: absolute;
       flex-direction: column;
       display: flex;
       justify-content: space-between;
-      margin-top: 30px;
+      margin-top: 70px;
+
+      @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+        display: flex;
+        align-self: center;
+        margin-top: 80px;
+      }
+
+      @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
+        position: relative;
+        align-self: end;
+        margin-top: 30px;
+      }
 
       .text-landing {
         max-width: 350px;
         position: relative;
         bottom: 0;
+
+        @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+          max-width: 500px;
+        }
 
         @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
           position: absolute;
@@ -75,6 +95,10 @@ const PageLanding = styled.div`
         font-size: 32px;
         font-weight: 900;
 
+        @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+          font-size: 54px;
+        }
+
         @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
           font-size: 76px;
           line-height: 70px;
@@ -84,6 +108,11 @@ const PageLanding = styled.div`
         margin-top: 20px;
         font-size: 16px;
         padding-bottom: 10px;
+
+        @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+          font-size: 24px;
+          line-height: 32px;
+        }
 
         @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
           margin-top: 40px;
@@ -102,9 +131,9 @@ const PageLanding = styled.div`
     }
 
     & .enter-app {
-      position: relative;
+      position: absolute;
       right: 0;
-      bottom: 0;
+      bottom: 120px;
       width: 50px;
       height: 50px;
       background-color: #945fbd;
@@ -115,8 +144,9 @@ const PageLanding = styled.div`
       transition: 0.2s;
       align-self: flex-end;
 
-      @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
+      @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
         position: absolute;
+        bottom: 0;
         width: 80px;
         height: 80px;
         border-radius: 30px;
@@ -133,7 +163,12 @@ export default function Landing() {
   return (
     <PageLanding>
       <div className="content-wrapper">
-        <Image src={LogoBikeText} alt="logo bike tipo vc" width={160} />
+        <Image
+          src={LogoBikeText}
+          alt="logo bike tipo vc"
+          width={160}
+          tabletWidth="260px"
+        />
         <main>
           <div className="text-landing">
             <h1 className="text-gray-700">Leve a saúde para sua vida</h1>
@@ -142,7 +177,12 @@ export default function Landing() {
             </p>
           </div>
           <div className="image-landing">
-            <img src={Ride} width={550} alt="mulher andando de bicicleta" />
+            <Image
+              src={Ride}
+              width={280}
+              desktopWidth="550px"
+              alt="mulher andando de bicicleta"
+            />
           </div>
         </main>
 

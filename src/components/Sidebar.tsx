@@ -1,7 +1,7 @@
 import React from "react"
 import { FiArrowLeft } from "react-icons/fi"
 import { useHistory } from "react-router-dom"
-import logoBike from "../images/logo-64px.svg"
+import logoBike from "../assets/images/logo-64px.svg"
 import styled from "styled-components"
 import tokens from "../config/tokens"
 import Image from "./Image"
@@ -12,6 +12,7 @@ type SidebarProps = {
 
 const SidebarShort = styled.aside`
   display: none;
+
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
     position: fixed;
     height: 100%;
@@ -104,7 +105,7 @@ export default function Sidebar(long: SidebarProps) {
         </SidebarLong>
       ) : (
         <SidebarShort>
-          <img src={logoBike} width="40px" alt="bike tipo vc" />
+          <Image src={logoBike} width={40} alt="bike tipo vc" />
           <footer>
             <ButtonIcon type="button" onClick={goBack}>
               <FiArrowLeft size={24} color="#fff" />

@@ -16,12 +16,12 @@ const StyledImage = styled.img<StyledImageProps>`
   height: ${(props) => props.height};
 
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
-    width: ${(props) => props.tabletWidth ? props.desktopWidth : "auto"};
+    width: ${(props) => (props.tabletWidth ? props.tabletWidth : "auto")};
     height: ${(props) => props.tabletHeight};
   }
 
   @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
-    width: ${(props) => props.desktopWidth ? props.desktopWidth : "auto"};
+    width: ${(props) => (props.desktopWidth ? props.desktopWidth : "auto")};
     height: ${(props) => props.desktopHeight};
   }
 `
