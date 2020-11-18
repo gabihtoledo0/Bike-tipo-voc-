@@ -1,5 +1,6 @@
 import React from "react"
-import { FiArrowRight } from "react-icons/fi"
+import { useTheme } from "@material-ui/core/styles"
+import { BsChevronDoubleDown } from "react-icons/bs"
 import { Link } from "react-router-dom"
 import LogoBikeText from "../assets/images/bike-tipo-vc.svg"
 import Ride from "../assets/images/ride.svg"
@@ -8,6 +9,7 @@ import tokens from "../config/tokens"
 import Image from "../components/Image"
 import Text from "../components/Text"
 import Title from "../components/Title"
+import Animista, { AnimistaTypes } from "react-animista"
 
 const PageLanding = styled.div`
   background: linear-gradient(
@@ -145,8 +147,8 @@ const PageLanding = styled.div`
       @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
         position: absolute;
         bottom: 0;
-        width: 80px;
-        height: 80px;
+        width: 50px;
+        height: 50px;
         border-radius: 30px;
       }
 
@@ -158,6 +160,7 @@ const PageLanding = styled.div`
 `
 
 export default function Landing() {
+  const theme = useTheme()
   return (
     <PageLanding>
       <div className="content-wrapper">
@@ -195,8 +198,16 @@ export default function Landing() {
           </Title>
         </div>
 
-        <Link to="/map" className="enter-app">
-          <FiArrowRight size={26} color="#fff" />
+        <Link to="/map">
+          <Animista
+            type={AnimistaTypes.SLIDE_TOP}
+            duration="2s"
+            direction="alternate-reverse"
+            iterationCount={999}
+            className="enter-app"
+          >
+            <BsChevronDoubleDown size={26} color="#fff" />
+          </Animista>
         </Link>
       </div>
     </PageLanding>
