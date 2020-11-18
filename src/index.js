@@ -1,11 +1,14 @@
 import React from 'react';
 import { render } from "react-dom";
-import "./styles/global.css";
+import GlobalStyle from "./assets/styles/global"
 import Routes from "./routes/index";
 
 export default function App() {
   return (
+    <>
+    <GlobalStyle />
     <Routes/>
+    </>
   );
 }
 
