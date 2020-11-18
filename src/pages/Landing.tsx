@@ -6,6 +6,8 @@ import Ride from "../assets/images/ride.svg"
 import styled from "styled-components"
 import tokens from "../config/tokens"
 import Image from "../components/Image"
+import Text from "../components/Text"
+import Title from "../components/Title"
 
 const PageLanding = styled.div`
   background: linear-gradient(
@@ -43,20 +45,16 @@ const PageLanding = styled.div`
       position: absolute;
       right: 0;
       top: 0;
-      font-size: 16px;
       display: flex;
       flex-direction: column;
       text-align: right;
       color: #945fbd;
 
-      @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
-        font-size: 20px;
-        line-height: 30px;
-      }
-
-      @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
-        font-size: 24px;
-        line-height: 34px;
+      p {
+        @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+          font-size: 20px;
+          line-height: 30px;
+        }
       }
     }
 
@@ -97,21 +95,18 @@ const PageLanding = styled.div`
       }
 
       h1 {
-        font-size: 32px;
-        font-weight: 900;
-
         @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
           font-size: 54px;
+          line-height: 70px;
         }
 
         @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
           font-size: 76px;
-          line-height: 70px;
+          line-height: 80px;
         }
       }
       p {
         margin-top: 20px;
-        font-size: 16px;
         padding-bottom: 10px;
 
         @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
@@ -121,8 +116,6 @@ const PageLanding = styled.div`
 
         @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
           margin-top: 40px;
-          font-size: 24px;
-          line-height: 34px;
           padding-bottom: 40px;
         }
       }
@@ -138,7 +131,7 @@ const PageLanding = styled.div`
     & .enter-app {
       position: absolute;
       right: 0;
-      bottom: 120px;
+      bottom: 60px;
       width: 50px;
       height: 50px;
       background-color: #945fbd;
@@ -176,10 +169,12 @@ export default function Landing() {
         />
         <main>
           <div className="text-landing">
-            <h1 className="text-gray-700">Leve a saúde para sua vida</h1>
-            <p className="text-gray-700">
+            <Title weight="bold" as="h1" size="big" className="text-gray-700">
+              Leve a saúde para sua vida
+            </Title>
+            <Text size="big" as="p" className="text-gray-700">
               Troque o carro pela bike e viva o mundo de uma melhor forma.
-            </p>
+            </Text>
           </div>
           <div className="image-landing">
             <Image
@@ -192,8 +187,12 @@ export default function Landing() {
         </main>
 
         <div className="location">
-          <strong>Springfield</strong>
-          <span>Oregon</span>
+          <Title as="p" size="xsmall" weight="bold">
+            Springfield
+          </Title>
+          <Title as="p" weight="regular" size="xsmall">
+            Oregon
+          </Title>
         </div>
 
         <Link to="/map" className="enter-app">

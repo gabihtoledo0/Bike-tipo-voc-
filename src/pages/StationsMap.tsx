@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import "../assets/styles/pages/stationsMapStyled.ts"
 import { Map, TileLayer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import logoBike from "../assets/images/logo-64px.svg"
@@ -7,13 +6,14 @@ import Leaflet from "leaflet"
 import { FiArrowRight } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import api from "../services/api"
-import { stationsMapStyled } from "../assets/styles/pages/stationsMapStyled"
 import "../assets/styles/pages/stylesPopup.css"
 import Sidebar from "../components/Sidebar"
+import styled from "styled-components"
+import tokens from "../config/tokens"
 
 const mapIcon = Leaflet.icon({
   iconUrl: logoBike,
-  iconSize: [58, 68],
+  iconSize: [52, 62],
   iconAnchor: [29, 68],
   popupAnchor: [170, 2],
 })
@@ -27,9 +27,22 @@ type StationsProps = {
   bikeUnavailable: number
 }
 
+const PageMap = styled.div`
+  width: 100vw;
+  height: 100vh;
+  position: relative;
+  display: flex;
+
+  .map {
+    margin-top: 70px;
+    @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+      margin-top: 0;
+    }
+  }
+`
+
 function StationsMap() {
   const [stations, setStations] = useState<StationsProps[]>([])
-  const classes = stationsMapStyled()
 
   useEffect(() => {
     api.get("stations").then((response) => {
@@ -38,9 +51,10 @@ function StationsMap() {
   }, [stations])
 
   return (
-    <div id="page-map" className={classes.pageMap}>
+    <PageMap id="page-map">
       <Sidebar long />
       <Map
+        className="map"
         center={[44.0614535, -123.0353531]}
         zoom={15}
         style={{ width: "100%", height: "100%" }}
@@ -70,7 +84,7 @@ function StationsMap() {
           )
         })}
       </Map>
-    </div>
+    </PageMap>
   )
 }
 
