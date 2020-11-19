@@ -4,12 +4,14 @@ const defaultTheme = createMuiTheme({
   backgrounds: {
     gradientPrimary:
       "linear-gradient(90deg,rgba(255, 246, 121, 1) 19%,rgba(251, 220, 54, 1) 51%,rgba(251, 219, 51, 1) 100%)",
+    gradientSecondary:
+      "linear-gradient(90deg, rgba(167,104,218,1) 0%, rgba(148,95,189,1) 40%, rgba(125,60,175,1) 100%)",
     inverse: "#ebf2f5",
     primary: "#ffffff",
   },
   colors: {
     color: {
-      primary: " rgba(251, 220, 54, 1)",
+      primary: "rgba(251, 220, 54, 1)",
       primaryInverse: "#945fbd",
       secondary: "rgba(255, 246, 121, 1)",
       secondaryInverse: "#7d3caf",
@@ -46,6 +48,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
   interface Theme {
     backgrounds: {
       gradientPrimary: React.CSSProperties["color"]
+      gradientSecondary: React.CSSProperties["color"]
       inverse: React.CSSProperties["color"]
       primary: React.CSSProperties["color"]
     }
@@ -84,6 +87,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
   interface ThemeOptions {
     backgrounds: {
       gradientPrimary: React.CSSProperties["color"]
+      gradientSecondary: React.CSSProperties["color"]
       inverse: React.CSSProperties["color"]
       primary: React.CSSProperties["color"]
     }
