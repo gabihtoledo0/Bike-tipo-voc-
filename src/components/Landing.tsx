@@ -144,3 +144,15 @@ export const PageLanding = styled.div`
     }
   `}
 `
+
+export const PurpleLanding = styled.div`
+  ${({ theme }) => `
+  background: ${theme.backgrounds.gradientSecondary};
+
+  @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
+    width: 100vw;
+    height: 100vh;
+    padding: 40px 20px;
+  }
+  `}
+`
