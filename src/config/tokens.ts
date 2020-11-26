@@ -40,9 +40,9 @@ const tokens = {
     },
     text: {
       family: {
-        regular: "Nunito, sans-serif",
-        medium: "Nunito, sans-serif",
-        bold: "Nunito, sans-serif",
+        regular: "Quicksand, sans-serif",
+        medium: "Quicksand, sans-serif",
+        bold: "Quicksand, sans-serif",
       },
       sizes: {
         big: {

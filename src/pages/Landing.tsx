@@ -39,7 +39,7 @@ export default function Landing() {
               <Title weight="bold" as="h1" size="big" className="text-gray-700">
                 Leve a saúde para sua vida
               </Title>
-              <Text size="big" as="p" className="text-gray-700">
+              <Text size="big" as="p" weight="bold" className="text-gray-700">
                 Troque o carro pela bike e viva o mundo de uma melhor forma.
               </Text>
             </div>
@@ -80,10 +80,28 @@ export default function Landing() {
       </PageLanding>
       <PurpleLanding>
         <StyledColumn>
-          <ColumnContainer desktopSize={6}>
+          <ColumnContainer desktopSize={5}>
+            <Title size="small" color={theme.colors.color.primary}>
+              Como funciona:
+            </Title>
+            <div className="pt-2 pb-8">
+              <Text size="big">
+                Vc pode andar de bike grátis até 1 hora por dia, mas depois
+                disso iremos cobrar um valor a cada 5 minutos, num modelo pay as
+                you go.
+              </Text>
+            </div>
             <Table />
+            <div className="pt-2">
+              <Text size="xsmall">
+                * Ao realizar seu o cadastro iremos pedir seu cartão de crédito,
+                pois quando passar do seu tempo gratuito por dia iremos
+                adicionar os valores a + em um histórico mensal, e então no
+                final do mês cairá na fatura do seu cartão :)
+              </Text>
+            </div>
           </ColumnContainer>
-          <ColumnContainer desktopSize={6}>
+          <ColumnContainer desktopSize={7}>
             <div className="flex justify-center items-center">
               <Image
                 src={MobileBro}

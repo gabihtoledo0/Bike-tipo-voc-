@@ -22,9 +22,9 @@ type GetFontWeightType = (weight: FontWeight) => number
 const getFontWeight: GetFontWeightType = (weight) => {
   switch (weight) {
     case "bold":
-      return 800
-    case "regular":
       return 600
+    case "regular":
+      return 400
   }
 }
 

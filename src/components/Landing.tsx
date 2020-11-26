@@ -152,7 +152,7 @@ export const PurpleLanding = styled.div`
   @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
     width: 100vw;
     height: 100vh;
-    padding: 40px 20px;
+    padding: 40px 60px;
   }
   `}
 `

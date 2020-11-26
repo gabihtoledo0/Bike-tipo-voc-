@@ -8,6 +8,7 @@ const defaultTheme = createMuiTheme({
       "linear-gradient(90deg, rgba(167,104,218,1) 0%, rgba(148,95,189,1) 40%, rgba(125,60,175,1) 100%)",
     inverse: "#ebf2f5",
     primary: "#ffffff",
+    disable: "#ced1d4",
   },
   colors: {
     color: {
@@ -20,12 +21,21 @@ const defaultTheme = createMuiTheme({
       basic3: "#ffec75",
       default: "#ffdd00",
       info: "#4A5568",
-      disable: "#ffffff",
+      disable: "#747e85",
       dark: "#000",
     },
     hover: {
       primary: "rgb(255, 230, 87)",
       secondary: "#7d3caf",
+    },
+    active: {
+      primary: "#fcbd1b",
+    },
+    button: {
+      primary: "rgb(255, 230, 87)",
+      secondary: "#7d3caf",
+      textPrimary: "#374151",
+      inverse: "#fff",
     },
   },
   shade: {
@@ -51,6 +61,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
       gradientSecondary: React.CSSProperties["color"]
       inverse: React.CSSProperties["color"]
       primary: React.CSSProperties["color"]
+      disable: React.CSSProperties["color"]
     }
     colors: {
       color: {
@@ -69,6 +80,15 @@ declare module "@material-ui/core/styles/createMuiTheme" {
       hover: {
         primary: React.CSSProperties["color"]
         secondary: React.CSSProperties["color"]
+      }
+      active: {
+        primary: React.CSSProperties["color"]
+      }
+      button: {
+        primary: React.CSSProperties["color"]
+        secondary: React.CSSProperties["color"]
+        textPrimary: React.CSSProperties["color"]
+        inverse: React.CSSProperties["color"]
       }
     }
     shade: {
@@ -90,6 +110,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
       gradientSecondary: React.CSSProperties["color"]
       inverse: React.CSSProperties["color"]
       primary: React.CSSProperties["color"]
+      disable: React.CSSProperties["color"]
     }
     colors: {
       color: {
@@ -108,6 +129,15 @@ declare module "@material-ui/core/styles/createMuiTheme" {
       hover: {
         primary: React.CSSProperties["color"]
         secondary: React.CSSProperties["color"]
+      }
+      active: {
+        primary: React.CSSProperties["color"]
+      }
+      button: {
+        primary: React.CSSProperties["color"]
+        secondary: React.CSSProperties["color"]
+        textPrimary: React.CSSProperties["color"]
+        inverse: React.CSSProperties["color"]
       }
     }
     shade: {

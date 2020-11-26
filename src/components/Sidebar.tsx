@@ -130,7 +130,7 @@ export default function Sidebar(long: SidebarProps) {
               <Title as="h2" weight="bold" className="text-gray-700">
                 Selecione a estação que desejar
               </Title>
-              <Text size="big" as="p" className="text-gray-700">
+              <Text size="big" as="p" className="text-gray-700" weight="bold">
                 Procure as estações que você queira retirar ou depositar sua
                 bike :)
               </Text>
