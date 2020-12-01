@@ -2,20 +2,21 @@ import React from "react"
 import { render } from "react-dom"
 import GlobalStyle from "./assets/styles/global"
 import Routes from "./routes/index"
-import { ThemeProvider } from "styled-components"
-import { StylesProvider, MuiThemeProvider } from "@material-ui/core"
+import { ThemeProvider as ThemeProviderStyled } from "styled-components"
+import { ThemeProvider } from "@material-ui/styles"
+import { StylesProvider } from "@material-ui/core"
 import defaultTheme from "./config/defaultTheme"
 
 export default function App() {
   return (
     <>
       <StylesProvider injectFirst>
-        <MuiThemeProvider theme={defaultTheme}>
-          <ThemeProvider theme={defaultTheme}>
+        <ThemeProvider theme={defaultTheme}>
+          <ThemeProviderStyled theme={defaultTheme}>
             <GlobalStyle />
             <Routes />
-          </ThemeProvider>
-        </MuiThemeProvider>
+          </ThemeProviderStyled>
+        </ThemeProvider>
       </StylesProvider>
     </>
   )

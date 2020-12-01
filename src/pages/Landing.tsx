@@ -12,8 +12,11 @@ import { useWindowScroll } from "react-use"
 import Table from "../components/Table"
 import { StyledColumn, ColumnContainer } from "../components/Grid"
 import MobileBro from "../assets/images/mobile-bro.svg"
+import Button from "@material-ui/core/Button"
+import { withStyles } from "@material-ui/core"
+import tokens from "../config/tokens"
 
-export default function Landing() {
+const Landing = () => {
   const theme = useTheme()
   const { y: pageYOffset } = useWindowScroll()
   const [isOpen, setIsOpen] = useState(false)
@@ -23,6 +26,20 @@ export default function Landing() {
       setIsOpen(true)
     }
   }, [])
+
+  const ButtonStyles = withStyles({
+    root: {
+      backgroundColor: `${theme.colors.button.primary}`,
+      width: "120px",
+      height: "45px",
+      fontFamily: `${tokens.typography.text.family.bold}`,
+      fontWeight: "bold",
+      borderRadius: "10px",
+      "&:hover": {
+        backgroundColor: `${theme.colors.hover.primary}`,
+      },
+    },
+  })(Button)
 
   return (
     <>
@@ -102,12 +119,17 @@ export default function Landing() {
             </div>
           </ColumnContainer>
           <ColumnContainer desktopSize={7}>
-            <div className="flex justify-center items-center">
-              <Image
-                src={MobileBro}
-                desktopWidth="430px"
-                alt="garoto na bicicleta conectado com o celular"
-              />
+            <div className="flex items-end flex-col pt-12">
+              <div className="items-center flex flex-col">
+                <div className="pb-12">
+                  <Image
+                    src={MobileBro}
+                    desktopWidth="430px"
+                    alt="garoto na bicicleta conectado com o celular"
+                  />
+                </div>
+                <ButtonStyles>Explorar</ButtonStyles>
+              </div>
             </div>
           </ColumnContainer>
         </StyledColumn>
@@ -115,3 +137,5 @@ export default function Landing() {
     </>
   )
 }
+
+export default Landing
