@@ -8,7 +8,6 @@ import Image from "../components/Image"
 import Text from "../components/Text"
 import Title from "../components/Title"
 import Animista, { AnimistaTypes } from "react-animista"
-import { useWindowScroll } from "react-use"
 import Table from "../components/Table"
 import { StyledColumn, ColumnContainer } from "../components/Grid"
 import MobileBro from "../assets/images/mobile-bro.svg"
@@ -18,18 +17,16 @@ import tokens from "../config/tokens"
 
 const Landing = () => {
   const theme = useTheme()
-  const { y: pageYOffset } = useWindowScroll()
-  const [isOpen, setIsOpen] = useState(false)
 
-  useEffect(() => {
-    if (pageYOffset > 400) {
-      setIsOpen(true)
-    }
-  }, [])
+  const scrollWin = () => {
+    window.scrollTo(0, document.body.scrollHeight)
+  }
 
   const ButtonStyles = withStyles({
     root: {
       backgroundColor: `${theme.colors.button.primary}`,
+      color: `${theme.colors.button.textPrimary}`,
+      fontSize: "12px",
       width: "120px",
       height: "45px",
       fontFamily: `${tokens.typography.text.family.bold}`,
@@ -79,7 +76,7 @@ const Landing = () => {
             </Title>
           </div>
 
-          <button onClick={() => setIsOpen(true)}>
+          <button onClick={() => scrollWin()}>
             <Animista
               type={AnimistaTypes.SHADOW_DROP_2_BR}
               duration="1.5s"
@@ -96,43 +93,49 @@ const Landing = () => {
         </div>
       </PageLanding>
       <PurpleLanding>
-        <StyledColumn>
-          <ColumnContainer desktopSize={5}>
-            <Title size="small" color={theme.colors.color.primary}>
-              Como funciona:
-            </Title>
-            <div className="pt-2 pb-8">
-              <Text size="big">
-                Vc pode andar de bike grátis até 1 hora por dia, mas depois
-                disso iremos cobrar um valor a cada 5 minutos, num modelo pay as
-                you go.
-              </Text>
-            </div>
-            <Table />
-            <div className="pt-2">
-              <Text size="xsmall">
-                * Ao realizar seu o cadastro iremos pedir seu cartão de crédito,
-                pois quando passar do seu tempo gratuito por dia iremos
-                adicionar os valores a + em um histórico mensal, e então no
-                final do mês cairá na fatura do seu cartão :)
-              </Text>
-            </div>
-          </ColumnContainer>
-          <ColumnContainer desktopSize={7}>
-            <div className="flex items-end flex-col pt-12">
-              <div className="items-center flex flex-col">
-                <div className="pb-12">
-                  <Image
-                    src={MobileBro}
-                    desktopWidth="430px"
-                    alt="garoto na bicicleta conectado com o celular"
-                  />
-                </div>
-                <ButtonStyles>Explorar</ButtonStyles>
+        <Animista
+          type={AnimistaTypes.SCALE_UP_CENTER}
+          duration="1s"
+          direction="normal"
+        >
+          <StyledColumn>
+            <ColumnContainer desktopSize={5}>
+              <Title size="small" color={theme.colors.color.primary}>
+                Como funciona:
+              </Title>
+              <div className="pt-2 pb-8">
+                <Text size="big">
+                  Vc pode andar de bike grátis até 1 hora por dia, mas depois
+                  disso iremos cobrar um valor a cada 5 minutos, num modelo pay
+                  as you go.
+                </Text>
               </div>
-            </div>
-          </ColumnContainer>
-        </StyledColumn>
+              <Table />
+              <div className="pt-2">
+                <Text size="xsmall">
+                  * Ao realizar seu o cadastro iremos pedir seu cartão de
+                  crédito, pois quando passar do seu tempo gratuito por dia
+                  iremos adicionar os valores a + em um histórico mensal, e
+                  então no final do mês cairá na fatura do seu cartão :)
+                </Text>
+              </div>
+            </ColumnContainer>
+            <ColumnContainer desktopSize={7}>
+              <div className="flex items-end flex-col pt-12">
+                <div className="items-center flex flex-col">
+                  <div className="pb-12">
+                    <Image
+                      src={MobileBro}
+                      desktopWidth="430px"
+                      alt="garoto na bicicleta conectado com o celular"
+                    />
+                  </div>
+                  <ButtonStyles>Explorar</ButtonStyles>
+                </div>
+              </div>
+            </ColumnContainer>
+          </StyledColumn>
+        </Animista>
       </PurpleLanding>
     </>
   )
