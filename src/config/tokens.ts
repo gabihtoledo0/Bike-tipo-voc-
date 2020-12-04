@@ -1,5 +1,6 @@
 const tokens = {
   grid: {
+    gutter: 16,
     columns: {
       mobile: 4,
       tablet: 8,
@@ -14,9 +15,9 @@ const tokens = {
   typography: {
     title: {
       family: {
-        regular: 'Nunito, sans-serif',
-        medium: 'Nunito, sans-serif',
-        bold: 'Nunito, sans-serif',
+        regular: "Nunito, sans-serif",
+        medium: "Nunito, sans-serif",
+        bold: "Nunito, sans-serif",
       },
       sizes: {
         big: {
@@ -39,9 +40,9 @@ const tokens = {
     },
     text: {
       family: {
-        regular: 'Nunito, sans-serif',
-        medium: 'Nunito, sans-serif',
-        bold: 'Nunito, sans-serif',
+        regular: "Quicksand, sans-serif",
+        medium: "Quicksand, sans-serif",
+        bold: "Quicksand, sans-serif",
       },
       sizes: {
         big: {
@@ -63,6 +64,6 @@ const tokens = {
       },
     },
   },
-};
+}
 
-export default tokens;
+export default tokens

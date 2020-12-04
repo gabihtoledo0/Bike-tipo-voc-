@@ -35,6 +35,7 @@ type ImageProps = {
   tabletHeight?: string
   desktopWidth?: string
   desktopHeight?: string
+  className?: string
 }
 
 const Image = ({
@@ -46,6 +47,7 @@ const Image = ({
   desktopHeight,
   tabletHeight,
   tabletWidth,
+  className,
 }: ImageProps) => {
   return (
     <StyledImage
@@ -53,6 +55,7 @@ const Image = ({
       alt={alt}
       width={width}
       height={height}
+      className={className}
       desktopWidth={desktopWidth}
       desktopHeight={desktopHeight}
       tabletHeight={tabletHeight}

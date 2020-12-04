@@ -86,12 +86,14 @@ const Title = React.memo(
     weight = "bold",
     align = "left",
     tabletAlign,
+    color,
     desktopAlign,
     className,
     children,
   }: TitleProps) => (
     <StyledTitle
       as={as}
+      color={color}
       className={className}
       size={size}
       weight={weight}
