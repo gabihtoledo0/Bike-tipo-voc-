@@ -38,7 +38,8 @@ export const ColumnContainer = styled.div<ColumnContainerProps>`
     grid-column: span ${(props) => props.tabletSize || props.size};
   }
   @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
-    display: ${(props) => (!props.desktopSize ? "none" : "block")};
+    display: ${(props) =>
+      !props.desktopSize ? "none" : "block"};
     grid-column: span
       ${(props) => props.desktopSize || props.tabletSize || props.size};
   }

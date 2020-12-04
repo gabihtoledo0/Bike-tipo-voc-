@@ -25,6 +25,10 @@ export const PageLanding = styled.div`
     flex-direction: column;
     justify-content: space-between;
 
+    @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+      height: 790px;
+    }
+
     @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
       height: 100%;
     }
@@ -111,6 +115,9 @@ export const PageLanding = styled.div`
       .image-landing {
         @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
           position: relative;
+          left: 350px;
+        }
+        @media screen and (min-width: 1280px) {
           left: 440px;
         }
       }
@@ -146,18 +153,42 @@ export const PurpleLanding = styled.div`
   background: ${theme.backgrounds.gradientSecondary};
   width: 100vw;
   height: 970px;
-  padding: 30px 20px;
+  padding: 30px 30px;
+
+  @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+    height: 700px;
+  }
 
   @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
-    width: 100vw;
+    height: 860px;
+    padding: 40px;
+  }
+
+  @media screen and (min-width: 1280px) {
     height: 100vh;
     padding: 40px 140px;
   }
+
+  .align-end {
+    @media screen and (min-width: ${tokens.breakpoints.desktop}px){
+      align-items: flex-end
+    }
+  }
+
 
   .display-image {
     display: none;
     @media screen and (min-width: ${tokens.breakpoints.desktop}px){
       display: block
+    }
+  }
+  .display-animation {
+    @media screen and (min-width: ${tokens.breakpoints.mobile}px){
+       animation: none;
+    }
+
+    @media screen and (min-width: ${tokens.breakpoints.tablet}px){
+      animation: none;
     }
   }
   `}
