@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { useTheme } from "@material-ui/core/styles"
 import { BsChevronDoubleDown } from "react-icons/bs"
 import LogoBikeText from "../assets/images/bike-tipo-vc.svg"
