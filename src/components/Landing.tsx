@@ -19,7 +19,7 @@ export const PageLanding = styled.div`
     position: relative;
     width: 100%;
     max-width: 1150px;
-    height: 100vh;
+    height: 550px;
     display: flex;
     align-items: flex-start;
     flex-direction: column;
@@ -117,25 +117,21 @@ export const PageLanding = styled.div`
     }
 
     & .enter-app {
+      display: none;
+
+      @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
       position: absolute;
-      right: 0;
-      bottom: 60px;
-      width: 50px;
-      height: 50px;
       background-color: ${theme.colors.color.primaryInverse};
-      border-radius: 18px;
       display: flex;
       align-items: center;
       justify-content: center;
       transition: 0.2s;
       align-self: flex-end;
-
-      @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
-        position: absolute;
-        bottom: 0;
-        width: 50px;
-        height: 50px;
-        border-radius: 30px;
+      right: 0;
+      bottom: 0;
+      width: 50px;
+      height: 50px;
+      border-radius: 30px;
       }
 
       :hover {
@@ -148,11 +144,21 @@ export const PageLanding = styled.div`
 export const PurpleLanding = styled.div`
   ${({ theme }) => `
   background: ${theme.backgrounds.gradientSecondary};
+  width: 100vw;
+  height: 970px;
+  padding: 30px 20px;
 
   @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
     width: 100vw;
     height: 100vh;
     padding: 40px 140px;
+  }
+
+  .display-image {
+    display: none;
+    @media screen and (min-width: ${tokens.breakpoints.desktop}px){
+      display: block
+    }
   }
   `}
 `

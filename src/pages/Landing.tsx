@@ -99,7 +99,7 @@ const Landing = () => {
           direction="normal"
         >
           <StyledColumn>
-            <ColumnContainer desktopSize={5}>
+            <ColumnContainer size={12} desktopSize={5}>
               <Title size="small" color={theme.colors.color.primary}>
                 Como funciona:
               </Title>
@@ -120,12 +120,13 @@ const Landing = () => {
                 </Text>
               </div>
             </ColumnContainer>
-            <ColumnContainer desktopSize={7}>
-              <div className="flex items-end flex-col pt-12">
+            <ColumnContainer size={12} desktopSize={7}>
+              <div className="flex md:items-end sm:items-center flex-col md:pt-12">
                 <div className="items-center flex flex-col">
-                  <div className="pb-12">
+                  <div className="md:pb-12">
                     <Image
                       src={MobileBro}
+                      className="display-image"
                       desktopWidth="430px"
                       alt="garoto na bicicleta conectado com o celular"
                     />
