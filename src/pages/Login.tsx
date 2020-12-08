@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form"
 import { ButtonPrimary, ButtonInvisible } from "../components/Button"
 import Input from "../components/Input"
 import { Sidebar } from "../components/Sidebar"
+import { Link } from "react-router-dom"
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm()
@@ -66,7 +67,7 @@ const Login = () => {
                       Falta pouco para começar a se exercitar :)
                     </Title>
                   </div>
-                  <div className="flex justify-center pb-4">
+                  <div className="flex justify-center">
                     <Input
                       autoComplete="off"
                       type="email"
@@ -87,9 +88,8 @@ const Login = () => {
                       <Small className="error">{errors.email.message}</Small>
                     )}
                   </div>
-                  <div className="flex justify-center pb-8">
+                  <div className="flex justify-center pb-2">
                     <Input
-                      withoutMarginTop
                       type="password"
                       name="password"
                       id="inputSenha"
@@ -116,9 +116,11 @@ const Login = () => {
                   </div>
                 </form>
                 <div className="pt-4 flex justify-center">
-                  <ButtonInvisible href="#text-buttons">
-                    Cadastre-se
-                  </ButtonInvisible>
+                  <Link to="/register">
+                    <ButtonInvisible href="#text-buttons">
+                      Cadastre-se
+                    </ButtonInvisible>
+                  </Link>
                 </div>
               </Container>
             </div>

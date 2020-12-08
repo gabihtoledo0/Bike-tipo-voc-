@@ -12,6 +12,7 @@ import Table from "../components/Table"
 import { StyledColumn, ColumnContainer } from "../components/Grid"
 import MobileBro from "../assets/images/mobile-bro.svg"
 import { ButtonPrimary } from "../components/Button"
+import { Link } from "react-router-dom"
 
 const Landing = () => {
   const theme = useTheme()
@@ -114,7 +115,9 @@ const Landing = () => {
                       alt="garoto na bicicleta conectado com o celular"
                     />
                   </div>
-                  <ButtonPrimary>Explorar</ButtonPrimary>
+                  <Link to="/map">
+                    <ButtonPrimary>Explorar</ButtonPrimary>
+                  </Link>
                 </div>
               </div>
             </ColumnContainer>

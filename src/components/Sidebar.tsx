@@ -29,28 +29,41 @@ const SidebarShort = styled.aside`
     align-items: center;
   }
 
-  & h2 {
-    font-size: 36px;
-  }
-
   .image-right {
     margin-right: 10px;
   }
 
+  footer {
+    position: absolute;
+    left: 20px;
+    right: 0;
+    top: 15px;
+  }
+
+  button {
+    width: 38px;
+    height: 38px;
+  }
+
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
-    position: fixed;
     height: 100%;
+    width: auto;
     padding: 32px 24px;
-    background: linear-gradient(
-      90deg,
-      rgba(255, 246, 121, 1) 19%,
-      rgba(251, 220, 54, 1) 51%,
-      rgba(251, 219, 51, 1) 100%
-    );
-    display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+
+    footer {
+      position: relative;
+      left: 0;
+      right: 0;
+      top: 0;
+    }
+
+    button {
+      width: 48px;
+      height: 48px;
+    }
   }
 `
 
@@ -133,7 +146,6 @@ const ButtonIcon = styled.button`
 `
 
 export function SidebarLarge() {
-  const { goBack } = useHistory()
   return (
     <>
       <SidebarLong>
