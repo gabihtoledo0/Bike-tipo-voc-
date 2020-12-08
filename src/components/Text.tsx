@@ -102,4 +102,9 @@ const Text = React.memo(
   )
 )
 
+export const Small = styled.small`
+  color: red;
+  margin-top: 5px;
+`
+
 export default Text

@@ -11,9 +11,7 @@ import Animista, { AnimistaTypes } from "react-animista"
 import Table from "../components/Table"
 import { StyledColumn, ColumnContainer } from "../components/Grid"
 import MobileBro from "../assets/images/mobile-bro.svg"
-import Button from "@material-ui/core/Button"
-import { withStyles } from "@material-ui/core"
-import tokens from "../config/tokens"
+import { ButtonPrimary } from "../components/Button"
 
 const Landing = () => {
   const theme = useTheme()
@@ -21,22 +19,6 @@ const Landing = () => {
   const scrollWin = () => {
     window.scrollTo(0, document.body.scrollHeight)
   }
-
-  const ButtonStyles = withStyles({
-    root: {
-      backgroundColor: `${theme.colors.button.primary}`,
-      color: `${theme.colors.button.textPrimary}`,
-      fontSize: "12px",
-      width: "120px",
-      height: "45px",
-      fontFamily: `${tokens.typography.text.family.bold}`,
-      fontWeight: "bold",
-      borderRadius: "10px",
-      "&:hover": {
-        backgroundColor: `${theme.colors.hover.primary}`,
-      },
-    },
-  })(Button)
 
   return (
     <>
@@ -132,7 +114,7 @@ const Landing = () => {
                       alt="garoto na bicicleta conectado com o celular"
                     />
                   </div>
-                  <ButtonStyles>Explorar</ButtonStyles>
+                  <ButtonPrimary>Explorar</ButtonPrimary>
                 </div>
               </div>
             </ColumnContainer>
