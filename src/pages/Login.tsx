@@ -96,10 +96,6 @@ const Login = () => {
                       placeholder="Senha"
                       ref={register({
                         required: "Preencha o campo senha",
-                        // pattern: {
-                        //   value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-                        //   message: "Preencha com uma senha válida",
-                        // },
                       })}
                     />
                   </div>
@@ -112,7 +108,9 @@ const Login = () => {
                     {session.message && (
                       <Small className="error">{session.message}</Small>
                     )}
-                    <ButtonPrimary>Entrar</ButtonPrimary>
+                    <ButtonPrimary style={{ width: "100%" }}>
+                      Entrar
+                    </ButtonPrimary>
                   </div>
                 </form>
                 <div className="pt-4 flex justify-center">

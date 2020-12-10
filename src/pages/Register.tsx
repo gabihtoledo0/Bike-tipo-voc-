@@ -1,12 +1,31 @@
-import React from "react"
+import React, { useState } from "react"
 import { Sidebar } from "../components/Sidebar"
 import { Container } from "../components/Grid"
 import Input from "../components/Input"
 import Text from "../components/Text"
 import { useForm } from "react-hook-form"
 import InputMask from "react-input-mask"
+import { ButtonPrimary } from "../components/Button"
+import Cards from "react-credit-cards"
 
 const Register = () => {
+  const [cvc, setCvc] = useState('')
+  const [expiry, setExpiry] = useState('')
+  const [focus, setFocus] = useState('')
+  const [name, setName] = useState('')
+  const [number, setNumber] = useState('')
+
+
+  handleInputFocus = (e: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({ focus: e.target.name })
+  }
+
+  handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
+
+    this.setState({ [name]: value })
+  }
+
   const { register, handleSubmit, errors } = useForm()
   return (
     <>
@@ -20,6 +39,7 @@ const Register = () => {
               type="text"
               name="name"
               id="inputName"
+              maxLength={100}
               placeholder="Nome Completo"
               ref={register({
                 required: "Preencha o campo nome",
@@ -35,9 +55,7 @@ const Register = () => {
               type="tel"
               name="phone"
               id="inputPhone"
-              maxLength={12}
               placeholder="Telefone"
-              defaultValue="as"
             >
               {(inputProps: any) => (
                 <Input
@@ -57,6 +75,7 @@ const Register = () => {
               type="email"
               name="email"
               id="inputEmail"
+              maxLength={100}
               placeholder="Email"
               ref={register({
                 required: "Preencha o campo email",
@@ -66,6 +85,7 @@ const Register = () => {
                 },
               })}
             />
+
             <Input
               type="password"
               name="password"
@@ -78,6 +98,14 @@ const Register = () => {
                   message: "Preencha com uma senha válida",
                 },
               })}
+            />
+            <ButtonPrimary>Cadastrar</ButtonPrimary>
+            <Cards
+              cvc={this.state.cvc}
+              expiry={this.state.expiry}
+              focused={this.state.focus}
+              name={this.state.name}
+              number={this.state.number}
             />
           </form>
         </Container>
