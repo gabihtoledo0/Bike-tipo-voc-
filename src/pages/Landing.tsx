@@ -33,10 +33,20 @@ const Landing = () => {
           />
           <main>
             <div className="text-landing">
-              <Title weight="bold" as="h1" size="big" className="text-gray-700">
+              <Title
+                weight="bold"
+                as="h1"
+                size="big"
+                color={theme.colors.color.textColor}
+              >
                 Leve a saúde para sua vida
               </Title>
-              <Text size="big" as="p" weight="bold" className="text-gray-700">
+              <Text
+                size="big"
+                as="p"
+                weight="bold"
+                color={theme.colors.color.textColor}
+              >
                 Troque o carro pela bike e viva o mundo de uma melhor forma.
               </Text>
             </div>

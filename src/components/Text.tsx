@@ -58,16 +58,7 @@ const StyledText = styled.p<Props>`
 `
 
 type TextProps = {
-  as?:
-    | "p"
-    | "div"
-    | "span"
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "h5"
-    | "h6"
+  as?: "p" | "div" | "span" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
   color?: string
   size?: FontSize
   weight?: FontWeight
@@ -84,6 +75,7 @@ const Text = React.memo(
     size = "default",
     weight = "regular",
     align = "left",
+    color,
     tabletAlign,
     desktopAlign,
     className,
@@ -91,6 +83,7 @@ const Text = React.memo(
   }: TextProps) => (
     <StyledText
       as={as}
+      color={color}
       className={className}
       size={size}
       weight={weight}

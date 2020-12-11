@@ -1,8 +1,12 @@
 import styled from "styled-components"
 
-const Input = styled.input`
+type InputProps = {
+  width?: string
+}
+
+const Input = styled.input<InputProps>`
+  width: ${(props) => (props.width ? props.width : "100")}%;
   ${({ theme }) => `
-  width: 100%;
   height: 3.2rem;
   margin-bottom: 2rem;
   border-radius: 10px;

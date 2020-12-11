@@ -1,6 +1,7 @@
 import React from "react"
 import { FiArrowLeft } from "react-icons/fi"
 import { useHistory } from "react-router-dom"
+import { useTheme } from "@material-ui/core/styles"
 import logoBike from "../assets/images/logo-64px.svg"
 import styled from "styled-components"
 import tokens from "../config/tokens"
@@ -146,6 +147,7 @@ const ButtonIcon = styled.button`
 `
 
 export function SidebarLarge() {
+  const theme = useTheme()
   return (
     <>
       <SidebarLong>
@@ -159,16 +161,26 @@ export function SidebarLarge() {
             />
           </div>
           <Visible desktop>
-            <Title as="h2" weight="bold" className="text-gray-700">
+            <Title as="h2" weight="bold" color={theme.colors.color.textColor}>
               Selecione a estação que desejar
             </Title>
-            <Text size="big" as="p" className="text-gray-700" weight="bold">
+            <Text
+              size="big"
+              as="p"
+              color={theme.colors.color.textColor}
+              weight="bold"
+            >
               Procure as estações que você queira retirar ou depositar sua bike
               :)
             </Text>
           </Visible>
           <Visible mobile>
-            <Text as="h2" weight="bold" size="big" className="text-gray-700">
+            <Text
+              as="h2"
+              weight="bold"
+              size="big"
+              color={theme.colors.color.textColor}
+            >
               bike tipo vc
             </Text>
           </Visible>
