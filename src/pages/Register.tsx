@@ -9,6 +9,7 @@ import { ButtonPrimary } from "../components/Button"
 import Cards from "react-credit-cards"
 import "react-credit-cards/es/styles-compiled.css"
 import { useTheme } from "@material-ui/core/styles"
+import "../assets/styles/pages/creditCard.css"
 
 const Register = () => {
   const [data, setData] = useState({
@@ -30,8 +31,8 @@ const Register = () => {
   return (
     <>
       <Sidebar />
-      <div className="flex justify-center items-center pt-4 pb-4">
-        <Container desktopWidth={50} box>
+      <div className="flex justify-center items-center md:pt-4 pt-12 pb-4">
+        <Container desktopWidth={50} tabletWidth={60} box>
           <form>
             <Text>Insira seus dados</Text>
             <Input

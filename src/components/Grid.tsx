@@ -13,6 +13,7 @@ type Container = {
   box?: boolean
   desktopWidth?: number
   width?: number
+  tabletWidth?: number
 }
 
 export const StyledColumn = styled.div`
@@ -51,9 +52,17 @@ export const Container = styled.div<Container>`
   height: auto;
   padding: 40px 50px 35px;
   box-shadow: ${(props) => (props.box ? defaultTheme.shade.dark.idle : "none")};
+  margin-top: 70px;
+
+  @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+    width: ${(props) => props.tabletWidth}%;
+    border-radius: 8px;
+    margin-top: 0;
+  }
 
   @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
-    width: ${(props) => (props.desktopWidth ? props.desktopWidth : "70")}%;
+    width: ${(props) => props.desktopWidth}%;
     border-radius: 8px;
+    margin-top: 0;
   }
 `
