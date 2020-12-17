@@ -40,10 +40,12 @@ type Props = {
 const StyledText = styled.p<Props>`
   font-family: ${(props) => getFontFamily(props.weight)};
   font-weight: ${(props) => getFontWeight(props.weight)};
-  font-size: ${(props) => getFontSize(props.size)}px;
+  font-size: ${(props) =>
+    props.size ? getFontSize(props.size) : getFontSize("default")}px;
   line-height: ${(props) => getLineHeight(props.size)}px;
   text-align: ${(props) => props.align};
-  color: ${(props) => props.color};
+  color: ${(props) =>
+    props.color ? props.color : props.theme.colors.color.info};
 
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
     text-align: ${(props) => [props.tabletAlign, props.align]};

@@ -1,8 +1,8 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Sidebar } from "../components/Sidebar"
 import { Container } from "../components/Grid"
 import Input from "../components/Input"
-import Text from "../components/Text"
+import Text, { Small } from "../components/Text"
 import { useForm } from "react-hook-form"
 import InputMask from "react-input-mask"
 import { ButtonPrimary } from "../components/Button"
@@ -10,37 +10,76 @@ import Cards from "react-credit-cards"
 import "react-credit-cards/es/styles-compiled.css"
 import { useTheme } from "@material-ui/core/styles"
 import "../assets/styles/pages/creditCard.css"
+import Title from "../components/Title"
+import api from "../services/api"
+import { useHistory } from "react-router-dom"
 
 const Register = () => {
-  const [data, setData] = useState({
+  const { register, handleSubmit, errors } = useForm()
+  const history = useHistory()
+  const theme = useTheme()
+  const [dataCard, setDataCard] = useState({
     cvc: "",
     expiry: "",
     nameCard: "",
-    number: "",
+    numberCard: "",
   })
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setData({
-      ...data,
+    setDataCard({
+      ...dataCard,
       [e.target.name]: e.target.value,
     })
   }
 
-  const { register, handleSubmit, errors } = useForm()
-  const theme = useTheme()
+  const [name, setName] = useState("")
+  const [phone, setPhone] = useState("")
+  const [email, setEmail] = useState("")
+  const [senha, setSenha] = useState("")
+
+  async function onSubmit(data: any) {
+    console.log(data)
+    await api.post("users", data)
+    alert("cadastro realizado com sucesso")
+    history.push("/login")
+  }
+
+  // useEffect(() => {
+  //   name,
+  //     phone,
+  //     email,
+  //     senha,
+  //     dataCard.cvc,
+  //     dataCard.expiry,
+  //     dataCard.numberCard
+  //   dataCard.nameCard
+  // }, [])
+
   return (
     <>
       <Sidebar />
       <div className="flex justify-center items-center md:pt-4 pt-12 pb-4">
         <Container desktopWidth={50} tabletWidth={60} box>
-          <form>
-            <Text>Insira seus dados</Text>
+          <div className="flex justify-center">
+            <Title size="small" color={theme.colors.color.info}>
+              Preencha seus dados
+            </Title>
+          </div>
+          <div className="flex justify-center pb-8">
+            <Text>É rápidinho, só para entendermos melhor sobre vc ;)</Text>
+          </div>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <Input
+              marginTop
               autoComplete="nope"
               type="text"
               name="name"
               id="inputName"
               maxLength={100}
+              value={name}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setName(e.target.value)
+              }
               placeholder="Nome Completo"
               ref={register({
                 required: "Preencha o nome",
@@ -50,6 +89,9 @@ const Register = () => {
                 },
               })}
             />
+            <div className="left">
+              {errors.name && <Small>{errors.name.message}</Small>}
+            </div>
             <InputMask
               mask="(99) 99999-9999"
               autoComplete="nope"
@@ -57,20 +99,23 @@ const Register = () => {
               name="phone"
               id="inputPhone"
               placeholder="Telefone"
+              value={phone}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setPhone(e.target.value)
+              }
             >
               {(inputProps: any) => (
                 <Input
                   {...inputProps}
                   ref={register({
                     required: "Preencha o telefone",
-                    pattern: {
-                      value: /^\([1-9]{2}\) (?:[2-8]|9[1-9])[0-9]{3}\-[0-9]{4}$/,
-                      message: "Preencha com um telefone válido",
-                    },
                   })}
                 />
               )}
             </InputMask>
+            <div className="left">
+              {errors.phone && <Small>{errors.phone.message}</Small>}
+            </div>
             <Input
               autoComplete="nope"
               type="email"
@@ -78,6 +123,10 @@ const Register = () => {
               id="inputEmail"
               maxLength={100}
               placeholder="Email"
+              value={email}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setEmail(e.target.value)
+              }
               ref={register({
                 required: "Preencha o email",
                 pattern: {
@@ -86,37 +135,47 @@ const Register = () => {
                 },
               })}
             />
-
+            <div className="left">
+              {errors.email && <Small>{errors.email.message}</Small>}
+            </div>
             <Input
               autoComplete="nope"
               type="password"
-              name="password"
+              name="senha"
               id="inputSenha"
               placeholder="Senha"
+              value={senha}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSenha(e.target.value)
+              }
               ref={register({
-                required: "Preencha o campo senha",
+                required: "Preencha a senha",
                 pattern: {
-                  value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
+                  value: /(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W+).*$/,
                   message: "Preencha com uma senha válida",
                 },
               })}
             />
-            <div className="pt-4 pb-12">
+            <div className="left">
+              {errors.senha && <Small>{errors.senha.message}</Small>}
+            </div>
+            <div className="pt-6">
               <Cards
-                cvc={data.cvc}
-                expiry={data.expiry}
-                name={data.nameCard}
-                number={data.number}
+                cvc={dataCard.cvc}
+                expiry={dataCard.expiry}
+                name={dataCard.nameCard}
+                number={dataCard.numberCard}
               />
             </div>
             <InputMask
               mask="9999 9999 9999 9999"
               autoComplete="nope"
               type="tel"
-              name="number"
+              name="numberCard"
               id="inputNumberCard"
               placeholder="Número do cartão"
               onChange={handleInputChange}
+              value={dataCard.numberCard}
             >
               {(inputProps: any) => (
                 <Input
@@ -131,15 +190,19 @@ const Register = () => {
                 />
               )}
             </InputMask>
+            <div className="left">
+              {errors.numberCard && <Small>{errors.numberCard.message}</Small>}
+            </div>
             <div className="flex flex-row justify-between">
               <InputMask
-                mask="99/99"
+                mask="99/9999"
                 autoComplete="nope"
                 type="tel"
                 name="expiry"
                 id="inputExpiry"
                 placeholder="Validade do cartão"
                 onChange={handleInputChange}
+                value={dataCard.expiry}
               >
                 {(inputProps: any) => (
                   <Input
@@ -148,7 +211,7 @@ const Register = () => {
                     ref={register({
                       required: "Preencha a validade do cartão",
                       pattern: {
-                        value: /^(0[1-9]|1[012])[- /.](19|20)\d\d$/,
+                        value: /^(0[1-9]|1[012])[/](19|20)\d{2}$/,
                         message: "Preencha com uma data correta",
                       },
                     })}
@@ -175,6 +238,12 @@ const Register = () => {
                 )}
               </InputMask>
             </div>
+            <div className="flex justify-between">
+              <div>
+                {errors.dateCard && <Small>{errors.dateCard.message}</Small>}
+              </div>
+              <div>{errors.cvc && <Small>{errors.cvc.message}</Small>}</div>
+            </div>
             <Input
               autoComplete="nope"
               type="text"
@@ -183,6 +252,7 @@ const Register = () => {
               maxLength={100}
               placeholder="Nome impresso no cartão"
               onChange={handleInputChange}
+              value={dataCard.nameCard}
               ref={register({
                 required: "Preencha o nome impresso no cartão",
                 pattern: {
@@ -191,13 +261,18 @@ const Register = () => {
                 },
               })}
             />
-            <Text color={theme.colors.color.textColor} size="small">
-              * Ao realizar o cadastro não iremos cobrar nenhum valor no seu
-              cartão, apenas salvamos seus dados para quando precisar cobrar
-              mensalmente ;)
-            </Text>
+            <div className="left">
+              {errors.nameCard && <Small>{errors.nameCard.message}</Small>}
+            </div>
+            <div className="pt-2">
+              <Text color={theme.colors.color.info} size="small">
+                * Ao realizar o cadastro não iremos cobrar nenhum valor no seu
+                cartão, apenas salvamos seus dados para quando precisar cobrar
+                mensalmente ;)
+              </Text>
+            </div>
             <div className="flex justify-center pt-6">
-              <ButtonPrimary>Cadastrar</ButtonPrimary>
+              <ButtonPrimary type="submit">Cadastrar</ButtonPrimary>
             </div>
           </form>
         </Container>

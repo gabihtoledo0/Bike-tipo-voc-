@@ -37,7 +37,7 @@ const Landing = () => {
                 weight="bold"
                 as="h1"
                 size="big"
-                color={theme.colors.color.textColor}
+                color={theme.colors.color.info}
               >
                 Leve a saúde para sua vida
               </Title>
@@ -45,7 +45,7 @@ const Landing = () => {
                 size="big"
                 as="p"
                 weight="bold"
-                color={theme.colors.color.textColor}
+                color={theme.colors.color.info}
               >
                 Troque o carro pela bike e viva o mundo de uma melhor forma.
               </Text>
@@ -61,10 +61,20 @@ const Landing = () => {
           </main>
 
           <div className="location">
-            <Title as="p" size="xsmall" weight="bold">
+            <Title
+              as="p"
+              color={theme.colors.color.primaryInverse}
+              size="xsmall"
+              weight="bold"
+            >
               Springfield
             </Title>
-            <Title as="p" weight="regular" size="xsmall">
+            <Title
+              as="p"
+              color={theme.colors.color.primaryInverse}
+              weight="regular"
+              size="xsmall"
+            >
               Oregon
             </Title>
           </div>
@@ -98,7 +108,7 @@ const Landing = () => {
                 Como funciona:
               </Title>
               <div className="pt-2 pb-8">
-                <Text size="big">
+                <Text size="big" color={theme.colors.color.defaultInverse}>
                   Vc pode andar de bike grátis até 1 hora por dia, mas depois
                   disso iremos cobrar um valor a cada 5 minutos, num modelo pay
                   as you go.
@@ -106,7 +116,7 @@ const Landing = () => {
               </div>
               <Table />
               <div className="pt-2">
-                <Text size="xsmall">
+                <Text size="xsmall" color={theme.colors.color.defaultInverse}>
                   * Ao realizar seu o cadastro iremos pedir seu cartão de
                   crédito, pois quando passar do seu tempo gratuito por dia
                   iremos adicionar os valores a + em um histórico mensal, e

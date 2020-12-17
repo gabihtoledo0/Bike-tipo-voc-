@@ -161,13 +161,13 @@ export function SidebarLarge() {
             />
           </div>
           <Visible desktop>
-            <Title as="h2" weight="bold" color={theme.colors.color.textColor}>
+            <Title as="h2" weight="bold" color={theme.colors.color.info}>
               Selecione a estação que desejar
             </Title>
             <Text
               size="big"
               as="p"
-              color={theme.colors.color.textColor}
+              color={theme.colors.color.info}
               weight="bold"
             >
               Procure as estações que você queira retirar ou depositar sua bike
@@ -179,7 +179,7 @@ export function SidebarLarge() {
               as="h2"
               weight="bold"
               size="big"
-              color={theme.colors.color.textColor}
+              color={theme.colors.color.info}
             >
               bike tipo vc
             </Text>
@@ -187,10 +187,18 @@ export function SidebarLarge() {
         </header>
         <Visible desktop>
           <footer>
-            <Text size="big" weight="bold">
+            <Text
+              size="big"
+              color={theme.colors.color.primaryInverse}
+              weight="bold"
+            >
               Springfield
             </Text>
-            <Text as="span" size="big">
+            <Text
+              as="span"
+              color={theme.colors.color.primaryInverse}
+              size="big"
+            >
               Oregon
             </Text>
           </footer>
