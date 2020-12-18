@@ -38,7 +38,6 @@ const Register = () => {
   const [senha, setSenha] = useState("")
 
   async function onSubmit(data: any) {
-    console.log(data)
     await api.post("users", data)
     alert("cadastro realizado com sucesso")
     history.push("/login")
@@ -89,9 +88,7 @@ const Register = () => {
                 },
               })}
             />
-            <div className="left">
-              {errors.name && <Small>{errors.name.message}</Small>}
-            </div>
+            {errors.name && <Small>{errors.name.message}</Small>}
             <InputMask
               mask="(99) 99999-9999"
               autoComplete="nope"
@@ -135,9 +132,7 @@ const Register = () => {
                 },
               })}
             />
-            <div className="left">
-              {errors.email && <Small>{errors.email.message}</Small>}
-            </div>
+            {errors.email && <Small>{errors.email.message}</Small>}
             <Input
               autoComplete="nope"
               type="password"
@@ -156,9 +151,7 @@ const Register = () => {
                 },
               })}
             />
-            <div className="left">
-              {errors.senha && <Small>{errors.senha.message}</Small>}
-            </div>
+            {errors.senha && <Small>{errors.senha.message}</Small>}
             <div className="pt-6">
               <Cards
                 cvc={dataCard.cvc}
@@ -190,9 +183,7 @@ const Register = () => {
                 />
               )}
             </InputMask>
-            <div className="left">
-              {errors.numberCard && <Small>{errors.numberCard.message}</Small>}
-            </div>
+            {errors.numberCard && <Small>{errors.numberCard.message}</Small>}
             <div className="flex flex-row justify-between">
               <InputMask
                 mask="99/9999"
@@ -240,7 +231,7 @@ const Register = () => {
             </div>
             <div className="flex justify-between">
               <div>
-                {errors.dateCard && <Small>{errors.dateCard.message}</Small>}
+                {errors.expiry && <Small>{errors.expiry.message}</Small>}
               </div>
               <div>{errors.cvc && <Small>{errors.cvc.message}</Small>}</div>
             </div>
@@ -261,9 +252,7 @@ const Register = () => {
                 },
               })}
             />
-            <div className="left">
-              {errors.nameCard && <Small>{errors.nameCard.message}</Small>}
-            </div>
+            {errors.nameCard && <Small>{errors.nameCard.message}</Small>}
             <div className="pt-2">
               <Text color={theme.colors.color.info} size="small">
                 * Ao realizar o cadastro não iremos cobrar nenhum valor no seu

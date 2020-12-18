@@ -10,6 +10,7 @@ import { ButtonPrimary, ButtonInvisible } from "../components/Button"
 import Input from "../components/Input"
 import { Sidebar } from "../components/Sidebar"
 import { Link } from "react-router-dom"
+import api from "../services/api"
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm()
@@ -21,14 +22,7 @@ const Login = () => {
         ? "https://demo3107275.mockable.io/login"
         : " https://demo3107275.mockable.io/failed-login"
 
-    fetch(url, {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: new Headers({
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      }),
-    }).then((response) => {
+    api.get("users", data).then((response) => {
       if (response.status === 401) {
         setSession({ message: "Login ou senha incorretos" })
       } else if (response.status === 200) {
@@ -56,7 +50,7 @@ const Login = () => {
           </ColumnContainer>
           <ColumnContainer desktopSize={6} tabletSize={12} size={12}>
             <div className="flex justify-center">
-              <Container box>
+              <Container width={70} box>
                 <form onSubmit={handleSubmit(onSubmit)}>
                   <div className="flex pb-8">
                     <Title
@@ -69,6 +63,7 @@ const Login = () => {
                   </div>
                   <div className="flex justify-center">
                     <Input
+                      marginTop
                       autoComplete="off"
                       type="email"
                       name="email"
@@ -83,11 +78,9 @@ const Login = () => {
                       })}
                     />
                   </div>
-                  <div className="flex justify-evenly">
-                    {errors.email && (
-                      <Small className="error">{errors.email.message}</Small>
-                    )}
-                  </div>
+                  {errors.email && (
+                    <Small className="error">{errors.email.message}</Small>
+                  )}
                   <div className="flex justify-center pb-2">
                     <Input
                       type="password"
@@ -99,16 +92,14 @@ const Login = () => {
                       })}
                     />
                   </div>
-                  <div className="flex justify-evenly">
-                    {errors.password && (
-                      <Small className="error">{errors.password.message}</Small>
-                    )}
-                  </div>
-                  <div className="flex justify-evenly">
+                  {errors.password && (
+                    <Small className="error">{errors.password.message}</Small>
+                  )}
+                  <div className="pt-6 flex justify-evenly">
                     {session.message && (
                       <Small className="error">{session.message}</Small>
                     )}
-                    <ButtonPrimary style={{ width: "100%" }}>
+                    <ButtonPrimary type="submit" style={{ width: "100%" }}>
                       Entrar
                     </ButtonPrimary>
                   </div>
