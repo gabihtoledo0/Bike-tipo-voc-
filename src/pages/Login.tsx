@@ -17,10 +17,10 @@ const Login = () => {
   const [session, setSession] = useState({ message: "" })
 
   function onSubmit(data: any) {
-    const url =
-      data.password === "123123"
-        ? "https://demo3107275.mockable.io/login"
-        : " https://demo3107275.mockable.io/failed-login"
+    // const url =
+    //   data.password === "123123"
+    //     ? "https://demo3107275.mockable.io/login"
+    //     : " https://demo3107275.mockable.io/failed-login"
 
     api.get("users", data).then((response) => {
       if (response.status === 401) {
