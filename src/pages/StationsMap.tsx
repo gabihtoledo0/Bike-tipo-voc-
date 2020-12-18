@@ -7,7 +7,7 @@ import { FiArrowRight } from "react-icons/fi"
 import { Link } from "react-router-dom"
 import api from "../services/api"
 import "../assets/styles/pages/stylesPopup.css"
-import Sidebar from "../components/Sidebar"
+import { SidebarLarge } from "../components/Sidebar"
 import styled from "styled-components"
 import tokens from "../config/tokens"
 
@@ -52,7 +52,7 @@ function StationsMap() {
 
   return (
     <PageMap id="page-map">
-      <Sidebar long />
+      <SidebarLarge />
       <Map
         className="map"
         center={[44.0614535, -123.0353531]}

@@ -9,10 +9,11 @@ type ColumnContainerProps = {
 }
 
 type Container = {
-  background: string
-  box: boolean
-  desktopWidth: number
-  width: number
+  background?: string
+  box?: boolean
+  desktopWidth?: number
+  width?: number
+  tabletWidth?: number
 }
 
 export const StyledColumn = styled.div`
@@ -38,8 +39,7 @@ export const ColumnContainer = styled.div<ColumnContainerProps>`
     grid-column: span ${(props) => props.tabletSize || props.size};
   }
   @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
-    display: ${(props) =>
-      !props.desktopSize ? "none" : "block"};
+    display: ${(props) => (!props.desktopSize ? "none" : "block")};
     grid-column: span
       ${(props) => props.desktopSize || props.tabletSize || props.size};
   }
@@ -50,11 +50,19 @@ export const Container = styled.div<Container>`
     props.background ? props.background : defaultTheme.backgrounds.primary};
   width: ${(props) => (props.width ? props.width : "100")}%;
   height: auto;
-  padding: 10px 40px 35px 40px;
+  padding: 40px 50px 35px;
   box-shadow: ${(props) => (props.box ? defaultTheme.shade.dark.idle : "none")};
+  margin-top: 70px;
+
+  @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+    width: ${(props) => props.tabletWidth}%;
+    border-radius: 8px;
+    margin-top: 0;
+  }
 
   @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
-    width: ${(props) => (props.desktopWidth ? props.desktopWidth : "50")}%;
+    width: ${(props) => props.desktopWidth}%;
     border-radius: 8px;
+    margin-top: 0;
   }
 `

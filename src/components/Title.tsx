@@ -51,7 +51,8 @@ const StyledTitle = styled.p<Props>`
   font-size: ${(props) => getFontSize(props.size)}px;
   line-height: ${(props) => getLineHeight(props.size)}px;
   text-align: ${(props) => props.align};
-  color: ${(props) => props.color};
+  color: ${(props) =>
+    props.color ? props.color : props.theme.colors.color.info};
 
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
     text-align: ${(props) => [props.tabletAlign, props.align]};

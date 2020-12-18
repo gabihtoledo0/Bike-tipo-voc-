@@ -40,10 +40,12 @@ type Props = {
 const StyledText = styled.p<Props>`
   font-family: ${(props) => getFontFamily(props.weight)};
   font-weight: ${(props) => getFontWeight(props.weight)};
-  font-size: ${(props) => getFontSize(props.size)}px;
+  font-size: ${(props) =>
+    props.size ? getFontSize(props.size) : getFontSize("default")}px;
   line-height: ${(props) => getLineHeight(props.size)}px;
   text-align: ${(props) => props.align};
-  color: ${(props) => props.color};
+  color: ${(props) =>
+    props.color ? props.color : props.theme.colors.color.info};
 
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
     text-align: ${(props) => [props.tabletAlign, props.align]};
@@ -58,16 +60,7 @@ const StyledText = styled.p<Props>`
 `
 
 type TextProps = {
-  as?:
-    | "p"
-    | "div"
-    | "span"
-    | "h1"
-    | "h2"
-    | "h3"
-    | "h4"
-    | "h5"
-    | "h6"
+  as?: "p" | "div" | "span" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6"
   color?: string
   size?: FontSize
   weight?: FontWeight
@@ -84,6 +77,7 @@ const Text = React.memo(
     size = "default",
     weight = "regular",
     align = "left",
+    color,
     tabletAlign,
     desktopAlign,
     className,
@@ -91,6 +85,7 @@ const Text = React.memo(
   }: TextProps) => (
     <StyledText
       as={as}
+      color={color}
       className={className}
       size={size}
       weight={weight}
@@ -101,5 +96,10 @@ const Text = React.memo(
     />
   )
 )
+
+export const Small = styled.small`
+  color: red;
+  margin-top: 5px;
+`
 
 export default Text

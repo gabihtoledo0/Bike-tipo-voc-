@@ -23,6 +23,7 @@ const defaultTheme = createMuiTheme({
       info: "#4A5568",
       disable: "#747e85",
       dark: "#000",
+      defaultInverse: "#ffffff",
     },
     hover: {
       primary: "rgb(255, 230, 87)",
@@ -76,6 +77,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
         info: React.CSSProperties["color"]
         disable: React.CSSProperties["color"]
         dark: React.CSSProperties["color"]
+        defaultInverse: React.CSSProperties["color"]
       }
       hover: {
         primary: React.CSSProperties["color"]
@@ -125,6 +127,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
         info: React.CSSProperties["color"]
         disable: React.CSSProperties["color"]
         dark: React.CSSProperties["color"]
+        defaultInverse: React.CSSProperties["color"]
       }
       hover: {
         primary: React.CSSProperties["color"]

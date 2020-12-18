@@ -182,14 +182,5 @@ export const PurpleLanding = styled.div`
       display: block
     }
   }
-  .display-animation {
-    @media screen and (min-width: ${tokens.breakpoints.mobile}px){
-       animation: none;
-    }
-
-    @media screen and (min-width: ${tokens.breakpoints.tablet}px){
-      animation: none;
-    }
-  }
   `}
 `
