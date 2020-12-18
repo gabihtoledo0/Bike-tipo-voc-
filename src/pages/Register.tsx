@@ -32,7 +32,7 @@ const Register = () => {
     })
   }
 
-  const [name, setName] = useState("")
+  const [name, setName] = useState(sessionStorage.getItem("@name") || "")
   const [phone, setPhone] = useState("")
   const [email, setEmail] = useState("")
   const [senha, setSenha] = useState("")
@@ -79,6 +79,7 @@ const Register = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setName(e.target.value)
               }
+              onBlur={() => sessionStorage.setItem("@name", name)}
               placeholder="Nome Completo"
               ref={register({
                 required: "Preencha o nome",
