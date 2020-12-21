@@ -33,26 +33,18 @@ const Register = () => {
   }
 
   const [name, setName] = useState(sessionStorage.getItem("@name") || "")
-  const [phone, setPhone] = useState("")
-  const [email, setEmail] = useState("")
-  const [senha, setSenha] = useState("")
+  const [phone, setPhone] = useState(sessionStorage.getItem("@phone") || "")
+  const [email, setEmail] = useState(sessionStorage.getItem("@email") || "")
+  const [password, setPassword] = useState<string>("")
+  const [confPassword, setConfPassword] = useState<string>("")
 
   async function onSubmit(data: any) {
-    await api.post("users", data)
-    alert("cadastro realizado com sucesso")
-    history.push("/login")
+    if (password === confPassword) {
+      await api.post("users", data)
+      alert("cadastro realizado com sucesso")
+      history.push("/login")
+    }
   }
-
-  // useEffect(() => {
-  //   name,
-  //     phone,
-  //     email,
-  //     senha,
-  //     dataCard.cvc,
-  //     dataCard.expiry,
-  //     dataCard.numberCard
-  //   dataCard.nameCard
-  // }, [])
 
   return (
     <>
@@ -98,6 +90,7 @@ const Register = () => {
               id="inputPhone"
               placeholder="Telefone"
               value={phone}
+              onBlur={() => sessionStorage.setItem("@phone", phone)}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPhone(e.target.value)
               }
@@ -122,6 +115,7 @@ const Register = () => {
               maxLength={100}
               placeholder="Email"
               value={email}
+              onBlur={() => sessionStorage.setItem("@email", email)}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setEmail(e.target.value)
               }
@@ -137,12 +131,12 @@ const Register = () => {
             <Input
               autoComplete="nope"
               type="password"
-              name="senha"
-              id="inputSenha"
+              name="password"
+              id="inputPassword"
               placeholder="Senha"
-              value={senha}
+              value={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setSenha(e.target.value)
+                setPassword(e.target.value)
               }
               ref={register({
                 required: "Preencha a senha",
@@ -152,7 +146,26 @@ const Register = () => {
                 },
               })}
             />
-            {errors.senha && <Small>{errors.senha.message}</Small>}
+            {errors.password && <Small>{errors.password.message}</Small>}
+            <Input
+              autoComplete="nope"
+              type="password"
+              name="confSenha"
+              id="inputConfPassword"
+              placeholder="Confirme sua senha"
+              value={confPassword}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setConfPassword(e.target.value)
+              }
+              ref={register({
+                required: "Confirme sua senha",
+              })}
+            />
+            {password !== "undefined" && confPassword !== "undefined" ? (
+              password !== confPassword ? (
+                <Small>As senhas não conferem</Small>
+              ) : null
+            ) : null}
             <div className="pt-6">
               <Cards
                 cvc={dataCard.cvc}
