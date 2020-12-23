@@ -1,34 +1,31 @@
-import React, { useState } from "react"
+import React from "react"
 import { StyledColumn, ColumnContainer, Container } from "../components/Grid"
 import Title from "../components/Title"
 import { Small } from "../components/Text"
 import Image from "../components/Image"
-import login from "../assets/images/login.svg"
+import CellPhoneLogin from "../assets/images/login.svg"
 import { useTheme } from "@material-ui/core/styles"
 import { useForm } from "react-hook-form"
 import { ButtonPrimary, ButtonInvisible } from "../components/Button"
 import Input from "../components/Input"
 import { Sidebar } from "../components/Sidebar"
-import { Link } from "react-router-dom"
 import api from "../services/api"
+import { useHistory } from "react-router-dom"
+import { login } from "../services/auth"
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm()
-  const [session, setSession] = useState({ message: "" })
+  const history = useHistory()
 
-  function onSubmit(data: any) {
-    // const url =
-    //   data.password === "123123"
-    //     ? "https://demo3107275.mockable.io/login"
-    //     : " https://demo3107275.mockable.io/failed-login"
-
-    api.get("users", data).then((response) => {
-      if (response.status === 401) {
-        setSession({ message: "Login ou senha incorretos" })
-      } else if (response.status === 200) {
-        setSession({ message: "" })
-      }
-    })
+  async function onSubmit(data: any) {
+    console.log(data)
+    try {
+      const response = await api.post("users/login", data)
+      login(response.data.token)
+      history.push("/map")
+    } catch (err) {
+      alert("Ocorreu um erro ao registrar sua conta.")
+    }
   }
 
   const theme = useTheme()
@@ -41,7 +38,7 @@ const Login = () => {
           <ColumnContainer desktopSize={6} tabletSize={6} size={6}>
             <div className="flex justify-center">
               <Image
-                src={login}
+                src={CellPhoneLogin}
                 width={300}
                 desktopWidth="500px"
                 alt="localização no globo terrestre"
@@ -96,20 +93,15 @@ const Login = () => {
                     <Small className="error">{errors.password.message}</Small>
                   )}
                   <div className="pt-6 flex justify-evenly">
-                    {session.message && (
-                      <Small className="error">{session.message}</Small>
-                    )}
                     <ButtonPrimary type="submit" style={{ width: "100%" }}>
                       Entrar
                     </ButtonPrimary>
                   </div>
                 </form>
                 <div className="pt-4 flex justify-center">
-                  <Link to="/register">
-                    <ButtonInvisible href="#text-buttons">
-                      Cadastre-se
-                    </ButtonInvisible>
-                  </Link>
+                  <ButtonInvisible onClick={() => history.push("/register")}>
+                    Cadastre-se
+                  </ButtonInvisible>
                 </div>
               </Container>
             </div>

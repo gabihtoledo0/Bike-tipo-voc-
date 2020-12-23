@@ -135,7 +135,7 @@ const Landing = () => {
                       alt="garoto na bicicleta conectado com o celular"
                     />
                   </div>
-                  <Link to="/map">
+                  <Link to="/preview-map">
                     <ButtonPrimary>Explorar</ButtonPrimary>
                   </Link>
                 </div>
