@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { StyledColumn, ColumnContainer, Container } from "../components/Grid"
 import Title from "../components/Title"
 import { Small } from "../components/Text"
@@ -12,19 +12,20 @@ import { Sidebar } from "../components/Sidebar"
 import api from "../services/api"
 import { useHistory } from "react-router-dom"
 import { login } from "../services/auth"
+import MessageError from "../components/MessageError"
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm()
+  const [errorLogin, setErrorLogin] = useState<boolean>(false)
   const history = useHistory()
 
   async function onSubmit(data: any) {
-    console.log(data)
     try {
       const response = await api.post("users/login", data)
       login(response.data.token)
       history.push("/map")
     } catch (err) {
-      alert("Ocorreu um erro ao registrar sua conta.")
+      setErrorLogin(true)
     }
   }
 
@@ -58,6 +59,11 @@ const Login = () => {
                       Falta pouco para começar a se exercitar :)
                     </Title>
                   </div>
+                  {errorLogin && (
+                    <div className="pb-4">
+                      <MessageError text="Email ou senha inválida" />
+                    </div>
+                  )}
                   <div className="flex justify-center">
                     <Input
                       marginTop
