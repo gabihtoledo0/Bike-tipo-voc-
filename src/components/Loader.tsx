@@ -12,7 +12,7 @@ const Loader = ({ data }: LoaderProps) => {
 
   return (
     <div
-      className="flex justify-center items-center"
+      className="flex flex-col justify-center items-center"
       style={{ height: "100vh" }}
     >
       <CircularProgress style={{ color: theme.colors.color.primaryInverse }} />
