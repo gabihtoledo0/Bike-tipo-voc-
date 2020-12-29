@@ -40,9 +40,13 @@ const Register = () => {
 
   async function onSubmit(data: any) {
     if (password === confPassword) {
-      await api.post("users", data)
-      alert("cadastro realizado com sucesso")
-      history.push("/login")
+      try {
+        await api.post("users", data)
+        alert("Cadastro realizado com sucesso.")
+        history.push("/login")
+      } catch (err) {
+        alert("Ocorreu um erro ao registrar sua conta.")
+      }
     }
   }
 
