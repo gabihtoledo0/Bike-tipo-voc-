@@ -13,9 +13,11 @@ import "../assets/styles/pages/creditCard.css"
 import Title from "../components/Title"
 import api from "../services/api"
 import { useHistory } from "react-router-dom"
+import MessageError from "../components/MessageError"
 
 const Register = () => {
   const { register, handleSubmit, errors } = useForm()
+
   const history = useHistory()
   const theme = useTheme()
   const [dataCard, setDataCard] = useState({
@@ -37,6 +39,7 @@ const Register = () => {
   const [email, setEmail] = useState(sessionStorage.getItem("@email") || "")
   const [password, setPassword] = useState<string>("")
   const [confPassword, setConfPassword] = useState<string>("")
+  const [errorRegister, setErrorRegister] = useState<boolean>(false)
 
   async function onSubmit(data: any) {
     if (password === confPassword) {
@@ -45,7 +48,7 @@ const Register = () => {
         alert("Cadastro realizado com sucesso.")
         history.push("/login")
       } catch (err) {
-        alert("Ocorreu um erro ao registrar sua conta.")
+        setErrorRegister(true)
       }
     }
   }
@@ -53,7 +56,7 @@ const Register = () => {
   return (
     <>
       <Sidebar />
-      <div className="flex justify-center items-center md:pt-4 pt-12 pb-4">
+      <div className="flex justify-center items-center md:pt-4 pt-12 pb-4 px-4">
         <Container desktopWidth={50} tabletWidth={60} box>
           <div className="flex justify-center">
             <Title size="small" color={theme.colors.color.info}>
@@ -278,6 +281,11 @@ const Register = () => {
                 mensalmente ;)
               </Text>
             </div>
+            {errorRegister && (
+              <div className="pt-4">
+                <MessageError text="Ocorreu um erro ao registrar sua conta" />
+              </div>
+            )}
             <div className="flex justify-center pt-6">
               <ButtonPrimary type="submit">Cadastrar</ButtonPrimary>
             </div>

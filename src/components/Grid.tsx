@@ -50,19 +50,20 @@ export const Container = styled.div<Container>`
     props.background ? props.background : defaultTheme.backgrounds.primary};
   width: ${(props) => (props.width ? props.width : "100")}%;
   height: auto;
-  padding: 40px 50px 35px;
+  padding: 40px 30px 35px;
   box-shadow: ${(props) => (props.box ? defaultTheme.shade.dark.idle : "none")};
-  margin-top: 70px;
+  margin-top: 40px;
+  border-radius: 8px;
 
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
-    width: ${(props) => props.tabletWidth}%;
-    border-radius: 8px;
+    width: ${(props) => (props.tabletWidth ? props.tabletWidth : "100")}%;
     margin-top: 0;
+    margin-left: 120px;
   }
 
   @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
-    width: ${(props) => props.desktopWidth}%;
-    border-radius: 8px;
+    width: ${(props) => (props.desktopWidth ? props.desktopWidth : "100")}%;
     margin-top: 0;
+    padding: 40px 50px 35px;
   }
 `

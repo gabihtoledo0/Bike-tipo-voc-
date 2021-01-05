@@ -10,6 +10,7 @@ import "../assets/styles/pages/stylesPopup.css"
 import { SidebarLarge } from "../components/Sidebar"
 import styled from "styled-components"
 import tokens from "../config/tokens"
+import Loader from "../components/Loader"
 
 const mapIcon = Leaflet.icon({
   iconUrl: logoBike,
@@ -43,14 +44,20 @@ const PageMap = styled.div`
 
 function StationsMap() {
   const [stations, setStations] = useState<StationsProps[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    api.get("stations").then((response) => {
-      setStations(response.data)
-    })
+    api
+      .get("stations")
+      .then((response) => {
+        setStations(response.data)
+      })
+      .catch(() => setLoading(true))
   }, [stations])
 
-  return (
+  return loading ? (
+    <Loader data="Carregando..." />
+  ) : (
     <PageMap id="page-map">
       <SidebarLarge />
       <Map
