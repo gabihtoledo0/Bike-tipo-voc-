@@ -22,6 +22,7 @@ const SidebarShort = styled.aside`
     rgba(251, 220, 54, 1) 51%,
     rgba(251, 219, 51, 1) 100%
   );
+  z-index: 10;
 
   header {
     display: flex;

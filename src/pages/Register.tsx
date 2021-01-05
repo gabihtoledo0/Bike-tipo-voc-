@@ -56,7 +56,7 @@ const Register = () => {
   return (
     <>
       <Sidebar />
-      <div className="flex justify-center items-center md:pt-4 pt-12 pb-4">
+      <div className="flex justify-center items-center md:pt-4 pt-12 pb-4 px-4">
         <Container desktopWidth={50} tabletWidth={60} box>
           <div className="flex justify-center">
             <Title size="small" color={theme.colors.color.info}>
