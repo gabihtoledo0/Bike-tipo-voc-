@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react"
+import { useTheme } from "@material-ui/core/styles"
 import { Map, TileLayer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import logoBike from "../assets/images/logo-64px.svg"
@@ -10,6 +11,12 @@ import "../assets/styles/pages/stylesPopup.css"
 import { SidebarLarge } from "../components/Sidebar"
 import styled from "styled-components"
 import tokens from "../config/tokens"
+import Loader from "../components/Loader"
+import BicycleParked from "../assets/images/bicycle-parked32x.png"
+import BicycleCanceled from "../assets/images/bike-canceled32x.png"
+import ParkingSign from "../assets/images/parking-sign32x.png"
+import Image from "../components/Image"
+import Text from "../components/Text"
 
 const mapIcon = Leaflet.icon({
   iconUrl: logoBike,
@@ -27,6 +34,10 @@ type StationsProps = {
   bikeUnavailable: number
 }
 
+type MapProps = {
+  isLogged?: boolean
+}
+
 const PageMap = styled.div`
   width: 100vw;
   height: 100vh;
@@ -41,16 +52,23 @@ const PageMap = styled.div`
   }
 `
 
-function StationsMap() {
+function StationsMap({ isLogged }: MapProps) {
   const [stations, setStations] = useState<StationsProps[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const theme = useTheme()
 
   useEffect(() => {
-    api.get("stations").then((response) => {
-      setStations(response.data)
-    })
+    api
+      .get("stations")
+      .then((response) => {
+        setStations(response.data)
+      })
+      .catch(() => setLoading(true))
   }, [stations])
 
-  return (
+  return loading ? (
+    <Loader data="Carregando..." />
+  ) : (
     <PageMap id="page-map">
       <SidebarLarge />
       <Map
@@ -69,17 +87,62 @@ function StationsMap() {
               position={[station.latitude, station.longitude]}
               icon={mapIcon}
             >
-              <Popup
-                closeButton={false}
-                minWidth={240}
-                className="map-popup"
-                maxHeight={240}
-              >
-                {station.name}
-                <Link to={`/station/${station.id}`}>
-                  <FiArrowRight size={20} color="#fff" />
-                </Link>
-              </Popup>
+              {isLogged ? (
+                <Popup
+                  closeButton={false}
+                  minWidth={240}
+                  className="map-popup-is-logged"
+                  maxHeight={240}
+                >
+                  {station.name}
+                  <div
+                    className="flex flex-row justify-between mt-3 mb-3"
+                    style={{ width: "80%" }}
+                  >
+                    <div className="flex-column">
+                      <Image src={BicycleParked} alt="bicicletas disponiveis" />
+                      <div className="mt-2 text-center">
+                        {station.bikeAvailable}
+                      </div>
+                    </div>
+                    <div className="flex-column">
+                      <Image src={ParkingSign} alt="vagas disponiveis" />
+                      <div
+                        className="mt-2 text-center"
+                        style={{ color: theme.colors.color.success }}
+                      >
+                        {station.bikeUnavailable}
+                      </div>
+                    </div>
+                    <div className="flex-column">
+                      <Image src={BicycleCanceled} alt="bicicletas quebradas" />
+                      <div
+                        className="mt-2 text-center"
+                        style={{ color: theme.colors.color.error }}
+                      >
+                        0
+                      </div>
+                    </div>
+                  </div>
+
+                  <Link to={`/station/${station.id}`}>
+                    <FiArrowRight size={20} color="#fff" />
+                  </Link>
+                </Popup>
+              ) : (
+                <Popup
+                  closeButton={false}
+                  minWidth={240}
+                  className="map-popup"
+                  maxHeight={240}
+                  maxWidth={260}
+                >
+                  Faça o login para continuar
+                  <Link to="/login">
+                    <FiArrowRight size={20} color="#fff" />
+                  </Link>
+                </Popup>
+              )}
             </Marker>
           )
         })}
