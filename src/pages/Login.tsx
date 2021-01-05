@@ -13,6 +13,7 @@ import api from "../services/api"
 import { useHistory } from "react-router-dom"
 import { login } from "../services/auth"
 import MessageError from "../components/MessageError"
+import Visible from "../components/Visible"
 
 const Login = () => {
   const { register, handleSubmit, errors } = useForm()
@@ -34,23 +35,26 @@ const Login = () => {
     <>
       <Sidebar />
       <div className="py-12 px-4">
-        <div className="h-16" />
+        <div className="lg:h-16" />
         <StyledColumn>
           <ColumnContainer desktopSize={6} tabletSize={6} size={6}>
             <div className="flex justify-center">
-              <Image
-                src={CellPhoneLogin}
-                width={300}
-                desktopWidth="500px"
-                alt="localização no globo terrestre"
-              />
+              <Visible desktop>
+                <Image
+                  src={CellPhoneLogin}
+                  width={300}
+                  desktopWidth="500px"
+                  alt="localização no globo terrestre"
+                  className="lg:ml-24"
+                />
+              </Visible>
             </div>
           </ColumnContainer>
           <ColumnContainer desktopSize={6} tabletSize={12} size={12}>
             <div className="flex justify-center">
-              <Container width={70} box>
+              <Container width={100} tabletWidth={70} desktopWidth={70} box>
                 <form onSubmit={handleSubmit(onSubmit)}>
-                  <div className="flex pb-8">
+                  <div className="pb-8">
                     <Title
                       size="small"
                       align="center"
