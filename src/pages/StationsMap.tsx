@@ -21,7 +21,7 @@ const mapIcon = Leaflet.icon({
   iconUrl: logoBike,
   iconSize: [52, 62],
   iconAnchor: [29, 68],
-  popupAnchor: [170, 2],
+  popupAnchor: [0, -65],
 })
 
 type StationsProps = {
