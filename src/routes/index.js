@@ -5,7 +5,6 @@ import StationsMap from "../pages/StationsMap"
 import CodeStation from "../pages/CodeStation"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
-import StationsMapPreview from "../pages/StationsMapPreview"
 import { isAuthenticated } from "../services/auth"
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
@@ -26,8 +25,8 @@ const Routes = () => {
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Landing} />
-        <Route path="/preview-map" component={StationsMapPreview} />
-        <PrivateRoute path="/map" component={StationsMap} />
+        <Route path="/preview-map" component={StationsMap} />
+        <PrivateRoute path="/map" component={() => <StationsMap isLogged />} />
         <Route path="/station/:id" component={CodeStation} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />

@@ -12,9 +12,25 @@ export const ButtonPrimary = withStyles({
     height: "45px",
     fontFamily: `${tokens.typography.text.family.bold}`,
     fontWeight: "bold",
-    borderRadius: "10px",
+    borderRadius: "5px",
     "&:hover": {
       backgroundColor: `${theme.colors.hover.primary}`,
+    },
+  },
+})(Button)
+
+export const ButtonSecondary = withStyles({
+  root: {
+    backgroundColor: `${theme.colors.button.secondary}`,
+    color: `${theme.colors.button.inverse}`,
+    fontSize: "12px",
+    width: "120px",
+    height: "45px",
+    fontFamily: `${tokens.typography.text.family.bold}`,
+    fontWeight: "bold",
+    borderRadius: "5px",
+    "&:hover": {
+      backgroundColor: `${theme.colors.hover.secondary}`,
     },
   },
 })(Button)
@@ -25,5 +41,7 @@ export const ButtonInvisible = withStyles({
     fontSize: "12px",
     fontFamily: `${tokens.typography.text.family.bold}`,
     fontWeight: "bold",
+    borderRadius: "5px",
+    borderColor: `${theme.colors.button.secondary}`,
   },
 })(Button)

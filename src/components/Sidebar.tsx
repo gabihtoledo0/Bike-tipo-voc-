@@ -9,6 +9,8 @@ import Image from "./Image"
 import Text from "./Text"
 import Title from "./Title"
 import Visible from "./Visible"
+import { ButtonSecondary, ButtonInvisible } from "../components/Button"
+import { logout } from "../services/auth"
 
 const SidebarShort = styled.aside`
   position: fixed;
@@ -81,10 +83,11 @@ const SidebarLong = styled.aside`
     rgba(251, 220, 54, 1) 51%,
     rgba(251, 219, 51, 1) 100%
   );
+  padding: 0 8px;
 
   header {
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     flex-direction: row;
     align-items: center;
   }
@@ -94,10 +97,11 @@ const SidebarLong = styled.aside`
   }
 
   .image-right {
-    margin-right: 10px;
+    position: absolute;
+    left: 20px;
   }
 
-  @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
+  @media screen and (min-width: ${tokens.breakpoints.desktop}px) {
     position: relative;
     width: 480px;
     height: auto;
@@ -107,6 +111,8 @@ const SidebarLong = styled.aside`
 
     .image-right {
       margin-right: 0;
+      position: relative;
+      left: 0;
     }
 
     header {
@@ -147,19 +153,73 @@ const ButtonIcon = styled.button`
   }
 `
 
-export function SidebarLarge() {
+type SidebarLargeProps = {
+  isLogged?: boolean
+}
+
+export function SidebarLarge({ isLogged }: SidebarLargeProps) {
   const theme = useTheme()
+  const history = useHistory()
+
+  function handleLogout() {
+    history.push("/login")
+    return logout()
+  }
   return (
     <>
       <SidebarLong>
         <header>
-          <div className="image-right">
-            <Image
-              src={logoBike}
-              width={30}
-              desktopWidth="60px"
-              alt="logo bike"
-            />
+          <div className="flex flex-row lg:justify-between items-center">
+            <div className="image-right">
+              <Image
+                src={logoBike}
+                width={40}
+                tabletWidth="50px"
+                desktopWidth="60px"
+                alt="logo bike"
+              />
+            </div>
+            {isLogged ? (
+              <div className="flex h-10 lg:h-16 text-center lg:flex-col sm:flex-row absolute right-0 mr-4 lg:mr-0 lg:relative">
+                <ButtonInvisible
+                  variant="outlined"
+                  style={{ width: "100%" }}
+                  onClick={() => history.push("/register")}
+                  className="lg:mb-2 mr-2 lg:mr-0"
+                >
+                  Meus dados
+                </ButtonInvisible>
+                <ButtonSecondary
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
+                  onClick={() => handleLogout()}
+                >
+                  Sair
+                </ButtonSecondary>
+              </div>
+            ) : (
+              <div className="flex h-10 lg:h-16 text-center lg:flex-col sm:flex-row absolute right-0 mr-4 lg:mr-0 lg:relative">
+                <ButtonInvisible
+                  variant="outlined"
+                  style={{ width: "100%" }}
+                  onClick={() => history.push("/register")}
+                  className="lg:mb-2 mr-2 lg:mr-0"
+                >
+                  Cadastre-se
+                </ButtonInvisible>
+                <ButtonSecondary
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
+                  onClick={() => history.push("/login")}
+                >
+                  Entrar
+                </ButtonSecondary>
+              </div>
+            )}
           </div>
           <Visible desktop>
             <Title as="h2" weight="bold" color={theme.colors.color.info}>
@@ -173,16 +233,6 @@ export function SidebarLarge() {
             >
               Procure as estações que você queira retirar ou depositar sua bike
               :)
-            </Text>
-          </Visible>
-          <Visible mobile>
-            <Text
-              as="h2"
-              weight="bold"
-              size="big"
-              color={theme.colors.color.info}
-            >
-              bike tipo vc
             </Text>
           </Visible>
         </header>
