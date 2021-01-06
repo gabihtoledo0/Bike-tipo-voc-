@@ -37,7 +37,7 @@ const defaultTheme = createMuiTheme({
     },
     button: {
       primary: "rgba(251, 220, 54, 1)",
-      secondary: "#7d3caf",
+      secondary: "#945fbd",
       textPrimary: "#374151",
       inverse: "#fff",
     },
