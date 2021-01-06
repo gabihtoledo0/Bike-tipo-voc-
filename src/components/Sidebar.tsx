@@ -10,6 +10,7 @@ import Text from "./Text"
 import Title from "./Title"
 import Visible from "./Visible"
 import { ButtonSecondary, ButtonInvisible } from "../components/Button"
+import { logout } from "../services/auth"
 
 const SidebarShort = styled.aside`
   position: fixed;
@@ -159,6 +160,11 @@ type SidebarLargeProps = {
 export function SidebarLarge({ isLogged }: SidebarLargeProps) {
   const theme = useTheme()
   const history = useHistory()
+
+  function handleLogout() {
+    history.push("/login")
+    return logout()
+  }
   return (
     <>
       <SidebarLong>
@@ -173,7 +179,7 @@ export function SidebarLarge({ isLogged }: SidebarLargeProps) {
                 alt="logo bike"
               />
             </div>
-            {isLogged && (
+            {isLogged ? (
               <div className="flex h-10 lg:h-16 text-center lg:flex-col sm:flex-row absolute right-0 mr-4 lg:mr-0 lg:relative">
                 <ButtonInvisible
                   variant="outlined"
@@ -188,8 +194,29 @@ export function SidebarLarge({ isLogged }: SidebarLargeProps) {
                     width: "100%",
                     height: "auto",
                   }}
+                  onClick={() => handleLogout()}
                 >
                   Sair
+                </ButtonSecondary>
+              </div>
+            ) : (
+              <div className="flex h-10 lg:h-16 text-center lg:flex-col sm:flex-row absolute right-0 mr-4 lg:mr-0 lg:relative">
+                <ButtonInvisible
+                  variant="outlined"
+                  style={{ width: "100%" }}
+                  onClick={() => history.push("/register")}
+                  className="lg:mb-2 mr-2 lg:mr-0"
+                >
+                  Cadastre-se
+                </ButtonInvisible>
+                <ButtonSecondary
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                  }}
+                  onClick={() => history.push("/login")}
+                >
+                  Entrar
                 </ButtonSecondary>
               </div>
             )}

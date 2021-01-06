@@ -16,7 +16,6 @@ import BicycleParked from "../assets/images/bicycle-parked32x.png"
 import BicycleCanceled from "../assets/images/bike-canceled32x.png"
 import ParkingSign from "../assets/images/parking-sign32x.png"
 import Image from "../components/Image"
-import Header from "../components/Header"
 
 const mapIcon = Leaflet.icon({
   iconUrl: logoBike,
