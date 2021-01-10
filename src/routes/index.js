@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import Landing from "../pages/Landing"
 import StationsMap from "../pages/StationsMap"
@@ -21,13 +21,22 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 )
 
 const Routes = () => {
+  const [raceStarted, setRaceStarted] = useState(0)
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Landing} />
         <Route path="/preview-map" component={StationsMap} />
         <PrivateRoute path="/map" component={() => <StationsMap isLogged />} />
-        <Route path="/station/:id" component={CodeStation} />
+        <Route
+          path="/station/:id"
+          component={() => (
+            <CodeStation
+              raceStarted={raceStarted}
+              setRaceStarted={setRaceStarted}
+            />
+          )}
+        />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
         <Route path="*" component={() => <h1>Page not found</h1>} />

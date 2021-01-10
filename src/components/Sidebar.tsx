@@ -173,9 +173,9 @@ export function SidebarLarge({ isLogged }: SidebarLargeProps) {
             <div className="image-right">
               <Image
                 src={logoBike}
+                desktopWidth={60}
+                tabletWidth={50}
                 width={40}
-                tabletWidth="50px"
-                desktopWidth="60px"
                 alt="logo bike"
               />
             </div>
@@ -263,7 +263,13 @@ export function Sidebar() {
   const { goBack } = useHistory()
   return (
     <SidebarShort>
-      <Image src={logoBike} width={40} alt="bike tipo vc" />
+      <Image
+        src={logoBike}
+        width={40}
+        tabletWidth={50}
+        desktopWidth={50}
+        alt="bike tipo vc"
+      />
       <footer>
         <ButtonIcon type="button" onClick={goBack}>
           <FiArrowLeft size={24} color="#fff" />
