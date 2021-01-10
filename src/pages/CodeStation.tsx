@@ -45,14 +45,18 @@ function CodeStation(props: any) {
   }
 
   const withdrawalBike = (id: any) => {
-    setRaceStarted(id)
-    console.log(id)
-    history.push("/map")
+    if (raceStarted !== 0) {
+      setError(true)
+      setTextError(
+        "Você já retirou a bike em uma determinada estação, para retirar outra devolva a anterior."
+      )
+    } else {
+      setRaceStarted(id)
+      history.push("/map")
+    }
   }
 
   const returnBike = (id: any) => {
-    console.log(id)
-    console.log(raceStarted)
     if (raceStarted === 0) {
       setError(true)
       setTextError(
@@ -64,6 +68,7 @@ function CodeStation(props: any) {
         "Você não pode devolver a bike na mesma estação de retirada. Tente em outra estação :)"
       )
     } else {
+      setRaceStarted(0)
       history.push("/map")
     }
   }
