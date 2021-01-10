@@ -43,7 +43,7 @@ const Login = () => {
                 <Image
                   src={CellPhoneLogin}
                   width={300}
-                  desktopWidth="500px"
+                  desktopWidth={500}
                   alt="localização no globo terrestre"
                   className="lg:ml-24"
                 />

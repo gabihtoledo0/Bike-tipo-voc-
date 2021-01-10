@@ -54,6 +54,7 @@ export const Container = styled.div<Container>`
   box-shadow: ${(props) => (props.box ? defaultTheme.shade.dark.idle : "none")};
   margin-top: 40px;
   border-radius: 8px;
+  z-index: 10;
 
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
     width: ${(props) => (props.tabletWidth ? props.tabletWidth : "100")}%;

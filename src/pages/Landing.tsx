@@ -29,7 +29,7 @@ const Landing = () => {
             src={LogoBikeText}
             alt="logo bike tipo vc"
             width={160}
-            tabletWidth="260px"
+            tabletWidth={260}
           />
           <main>
             <div className="text-landing">
@@ -54,7 +54,7 @@ const Landing = () => {
               <Image
                 src={Ride}
                 width={280}
-                desktopWidth="550px"
+                desktopWidth={550}
                 alt="mulher andando de bicicleta"
               />
             </div>
@@ -131,7 +131,7 @@ const Landing = () => {
                     <Image
                       src={MobileBro}
                       className="display-image"
-                      desktopWidth="430px"
+                      desktopWidth={430}
                       alt="garoto na bicicleta conectado com o celular"
                     />
                   </div>
