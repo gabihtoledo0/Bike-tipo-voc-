@@ -12,6 +12,7 @@ import TorontoRafiki from "../assets/images/Toronto-rafiki.svg"
 import { useTheme } from "@material-ui/core/styles"
 import { useHistory } from "react-router-dom"
 import MessageError from "../components/MessageError"
+import SimpleModal from "../components/SimpleModal"
 
 type StationProps = {
   id?: number
@@ -33,6 +34,7 @@ function CodeStation(props: any) {
   const { raceStarted, setRaceStarted } = props
   const [error, setError] = useState<boolean>(false)
   const [textError, setTextError] = useState<string>("")
+  const [modal, setModal] = useState<boolean>(false)
 
   useEffect(() => {
     api.get(`stations/${params.id}`).then((response) => {
@@ -52,7 +54,7 @@ function CodeStation(props: any) {
       )
     } else {
       setRaceStarted(id)
-      history.push("/map")
+      setModal(true)
     }
   }
 
@@ -77,6 +79,10 @@ function CodeStation(props: any) {
     <>
       <Sidebar />
       <div className="flex justify-center pt-12">
+        <SimpleModal
+          title="Sucesso!"
+          content="Bike retirada com sucesso, aproveite sua viagem ;)"
+        />
         <Container desktopWidth={50} tabletWidth={60} box>
           <div className="flex justify-center pb-4">
             <Text
