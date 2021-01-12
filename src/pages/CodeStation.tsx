@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, FormEvent } from "react"
 import { Sidebar } from "../components/Sidebar"
 import { useParams } from "react-router-dom"
 import api from "../services/api"
@@ -13,6 +13,7 @@ import { useTheme } from "@material-ui/core/styles"
 import { useHistory } from "react-router-dom"
 import MessageError from "../components/MessageError"
 import SimpleModal from "../components/SimpleModal"
+import { MdDone } from "react-icons/md"
 
 type StationProps = {
   id?: number
@@ -34,7 +35,7 @@ function CodeStation(props: any) {
   const { raceStarted, setRaceStarted } = props
   const [error, setError] = useState<boolean>(false)
   const [textError, setTextError] = useState<string>("")
-  const [modal, setModal] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(false)
 
   useEffect(() => {
     api.get(`stations/${params.id}`).then((response) => {
@@ -54,7 +55,7 @@ function CodeStation(props: any) {
       )
     } else {
       setRaceStarted(id)
-      setModal(true)
+      setIsOpen(true)
     }
   }
 
@@ -71,8 +72,15 @@ function CodeStation(props: any) {
       )
     } else {
       setRaceStarted(0)
-      history.push("/map")
     }
+  }
+
+  const iconModal = () => {
+    return <MdDone size={24} color={theme.colors.color.success} />
+  }
+
+  const footerModal = () => {
+    return <ButtonSecondary onClick={() => history.push("/map")} />
   }
 
   return (
@@ -80,8 +88,22 @@ function CodeStation(props: any) {
       <Sidebar />
       <div className="flex justify-center pt-12">
         <SimpleModal
+          icon={iconModal()}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          iconBackgroundColor={theme.backgrounds.successLight}
           title="Sucesso!"
           content="Bike retirada com sucesso, aproveite sua viagem ;)"
+          footer={footerModal()}
+        />
+        <SimpleModal
+          icon={iconModal()}
+          isOpen={isOpen}
+          onClose={() => setIsOpen(false)}
+          iconBackgroundColor={theme.backgrounds.successLight}
+          title="Sucesso!"
+          content="Bike devolvida com sucesso, volte sempre ;)"
+          footer={footerModal()}
         />
         <Container desktopWidth={50} tabletWidth={60} box>
           <div className="flex justify-center pb-4">

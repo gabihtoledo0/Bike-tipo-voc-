@@ -10,7 +10,7 @@ const MessageErrorStyle = styled.div`
     border-radius: 8px;
     display: flex;
     align-items: center;
-    background-color: ${theme.backgrounds.error};
+    background-color: ${theme.backgrounds.errorLight};
     padding: 8px 30px;
   `}
 `
