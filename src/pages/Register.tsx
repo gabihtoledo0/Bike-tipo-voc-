@@ -41,7 +41,6 @@ const Register = () => {
   const [email, setEmail] = useState(sessionStorage.getItem("@email") || "")
   const [password, setPassword] = useState<string>("")
   const [confPassword, setConfPassword] = useState<string>("")
-  const [errorRegister, setErrorRegister] = useState<boolean>(false)
   const [isOpenModalSucess, setIsOpenModalSucess] = useState<boolean>(false)
   const [isOpenModalError, setIsOpenModalError] = useState<boolean>(false)
 
@@ -332,11 +331,6 @@ const Register = () => {
                 mensalmente ;)
               </Text>
             </div>
-            {errorRegister && (
-              <div className="pt-4">
-                <MessageError text="Ocorreu um erro ao registrar sua conta" />
-              </div>
-            )}
             <div className="flex justify-center pt-6">
               <ButtonPrimary type="submit">Cadastrar</ButtonPrimary>
             </div>
