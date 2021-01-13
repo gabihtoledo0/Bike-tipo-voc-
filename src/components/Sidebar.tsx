@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { FiArrowLeft } from "react-icons/fi"
 import { useHistory } from "react-router-dom"
 import { useTheme } from "@material-ui/core/styles"
@@ -11,6 +11,7 @@ import Title from "./Title"
 import Visible from "./Visible"
 import { ButtonSecondary, ButtonInvisible } from "../components/Button"
 import { logout } from "../services/auth"
+import api from "../services/api"
 
 const SidebarShort = styled.aside`
   position: fixed;
@@ -157,14 +158,21 @@ type SidebarLargeProps = {
   isLogged?: boolean
 }
 
+type UsersProps = {
+  id?: number
+}
+
 export function SidebarLarge({ isLogged }: SidebarLargeProps) {
   const theme = useTheme()
   const history = useHistory()
+  const idUser = localStorage.getItem("@id-user")
 
   function handleLogout() {
     history.push("/login")
     return logout()
   }
+
+
   return (
     <>
       <SidebarLong>
@@ -184,7 +192,7 @@ export function SidebarLarge({ isLogged }: SidebarLargeProps) {
                 <ButtonInvisible
                   variant="outlined"
                   style={{ width: "100%" }}
-                  onClick={() => history.push("/register")}
+                  onClick={() => history.push(`/meus-dados/${idUser}`)}
                   className="lg:mb-2 mr-2 lg:mr-0"
                 >
                   Meus dados

@@ -11,7 +11,7 @@ import Input from "../components/Input"
 import { Sidebar } from "../components/Sidebar"
 import api from "../services/api"
 import { useHistory } from "react-router-dom"
-import { login } from "../services/auth"
+import { login, idUser } from "../services/auth"
 import MessageError from "../components/MessageError"
 import Visible from "../components/Visible"
 
@@ -24,6 +24,7 @@ const Login = () => {
     try {
       const response = await api.post("users/login", data)
       login(response.data.token)
+      idUser(response.data.id)
       history.push("/map")
     } catch (err) {
       setErrorLogin(true)

@@ -121,7 +121,7 @@ function CodeStation(props: any) {
           </div>
         </Container>
       </div>
-      <div className="absolute right-0 bottom-0">
+      <div className="absolute right-0 bottom-0 opacity-75">
         <Image src={TorontoRafiki} alt="viagem de bicicleta" width={400} />
       </div>
     </>
