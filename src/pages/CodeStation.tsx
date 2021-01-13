@@ -12,7 +12,7 @@ import TorontoRafiki from "../assets/images/Toronto-rafiki.svg"
 import { useTheme } from "@material-ui/core/styles"
 import { useHistory } from "react-router-dom"
 import MessageError from "../components/MessageError"
-import SimpleModal from "../components/SimpleModal"
+import Modal from "../components/Modal"
 import { MdDone } from "react-icons/md"
 
 type StationProps = {
@@ -80,14 +80,18 @@ function CodeStation(props: any) {
   }
 
   const footerModal = () => {
-    return <ButtonSecondary onClick={() => history.push("/map")} />
+    return (
+      <ButtonSecondary onClick={() => history.push("/map")}>
+        Voltar para o mapa
+      </ButtonSecondary>
+    )
   }
 
   return (
     <>
       <Sidebar />
       <div className="flex justify-center pt-12">
-        <SimpleModal
+        <Modal
           icon={iconModal()}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}
@@ -96,7 +100,7 @@ function CodeStation(props: any) {
           content="Bike retirada com sucesso, aproveite sua viagem ;)"
           footer={footerModal()}
         />
-        <SimpleModal
+        <Modal
           icon={iconModal()}
           isOpen={isOpen}
           onClose={() => setIsOpen(false)}

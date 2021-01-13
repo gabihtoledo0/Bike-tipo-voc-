@@ -12,7 +12,7 @@ type ModalProps = {
   footer?: React.ReactNode
 }
 
-export default function SimpleModal({
+export default function Modal({
   title,
   content,
   icon,
@@ -64,12 +64,12 @@ export default function SimpleModal({
                 <MdClose size={26} color={theme.colors.button.textPrimary} />
               </button>
             </div>
-            {footer && (
-              <div className="bg-purple-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                {footer}
-              </div>
-            )}
           </div>
+          {footer && (
+            <div className="bg-purple-100 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+              {footer}
+            </div>
+          )}
         </div>
       </div>
     </div>
