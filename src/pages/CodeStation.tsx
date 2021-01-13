@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FormEvent } from "react"
+import React, { useEffect, useState } from "react"
 import { Sidebar } from "../components/Sidebar"
 import { useParams } from "react-router-dom"
 import api from "../services/api"
