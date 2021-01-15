@@ -54,9 +54,6 @@ function ChangeRegister() {
     })
   }
 
-  const [name, setName] = useState(sessionStorage.getItem("@name") || "")
-  const [phone, setPhone] = useState(sessionStorage.getItem("@phone") || "")
-  const [email, setEmail] = useState(sessionStorage.getItem("@email") || "")
   const [password, setPassword] = useState<string>("")
   const [confPassword, setConfPassword] = useState<string>("")
   const [errorRegister, setErrorRegister] = useState<boolean>(false)
@@ -104,11 +101,7 @@ function ChangeRegister() {
               name="name"
               id="inputName"
               maxLength={100}
-              value={users.name}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setName(e.target.value)
-              }
-              onBlur={() => sessionStorage.setItem("@name", name)}
+              defaultValue={users.name}
               placeholder="Nome Completo"
               ref={register({
                 required: "Preencha o nome",
@@ -126,11 +119,7 @@ function ChangeRegister() {
               name="phone"
               id="inputPhone"
               placeholder="Telefone"
-              value={users.phone}
-              onBlur={() => sessionStorage.setItem("@phone", phone)}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPhone(e.target.value)
-              }
+              defaultValue={users.phone}
             >
               {(inputProps: any) => (
                 <Input
@@ -151,11 +140,7 @@ function ChangeRegister() {
               id="inputEmail"
               maxLength={100}
               placeholder="Email"
-              value={users.email}
-              onBlur={() => sessionStorage.setItem("@email", email)}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.target.value)
-              }
+              defaultValue={users.email}
               ref={register({
                 required: "Preencha o email",
                 pattern: {
@@ -171,7 +156,7 @@ function ChangeRegister() {
               name="password"
               id="inputPassword"
               placeholder="Senha"
-              value={users.password}
+              defaultValue={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
@@ -190,7 +175,7 @@ function ChangeRegister() {
               name="confSenha"
               id="inputConfPassword"
               placeholder="Confirme sua senha"
-              value={confPassword}
+              defaultValue={confPassword}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setConfPassword(e.target.value)
               }
@@ -219,7 +204,7 @@ function ChangeRegister() {
               id="inputNumberCard"
               placeholder="Número do cartão"
               onChange={handleInputChange}
-              value={users.numberCard}
+              defaultValue={users.numberCard}
             >
               {(inputProps: any) => (
                 <Input
@@ -244,7 +229,7 @@ function ChangeRegister() {
                 id="inputExpiry"
                 placeholder="Validade do cartão"
                 onChange={handleInputChange}
-                value={users.expiry}
+                defaultValue={users.expiry}
               >
                 {(inputProps: any) => (
                   <Input
@@ -294,7 +279,7 @@ function ChangeRegister() {
               maxLength={100}
               placeholder="Nome impresso no cartão"
               onChange={handleInputChange}
-              value={users.nameCard}
+              defaultValue={users.nameCard}
               ref={register({
                 required: "Preencha o nome impresso no cartão",
                 pattern: {
