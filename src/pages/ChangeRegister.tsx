@@ -5,7 +5,7 @@ import Input from "../components/Input"
 import Text, { Small } from "../components/Text"
 import { useForm } from "react-hook-form"
 import InputMask from "react-input-mask"
-import { ButtonPrimary } from "../components/Button"
+import { ButtonPrimary, ButtonDelet } from "../components/Button"
 import Cards from "react-credit-cards"
 import "react-credit-cards/es/styles-compiled.css"
 import { useTheme } from "@material-ui/core/styles"
@@ -16,9 +16,9 @@ import { useHistory } from "react-router-dom"
 import MessageError from "../components/MessageError"
 import { useParams } from "react-router-dom"
 import Loader from "../components/Loader"
+import { logout } from "../services/auth"
 
 type UsersProps = {
-  id?: string
   name?: string
   email?: string
   phone?: number
@@ -58,18 +58,6 @@ function ChangeRegister() {
   const [confPassword, setConfPassword] = useState<string>("")
   const [errorRegister, setErrorRegister] = useState<boolean>(false)
 
-  async function onSubmit(data: any) {
-    if (password === confPassword) {
-      try {
-        await api.post("users", data)
-        alert("Cadastro realizado com sucesso.")
-        history.push("/login")
-      } catch (err) {
-        setErrorRegister(true)
-      }
-    }
-  }
-
   useEffect(() => {
     api.get(`users/${params.id}`).then((response) => {
       setUsers(response.data)
@@ -78,6 +66,29 @@ function ChangeRegister() {
 
   if (!users) {
     return <Loader data="Carregando..." />
+  }
+
+  async function onSubmit(data: any) {
+    if (password === confPassword) {
+      try {
+        await api.put(`users/meus-dados/${params.id}`, data)
+        alert("Cadastro realizado com sucesso.")
+        history.push("/map")
+      } catch (err) {
+        setErrorRegister(true)
+      }
+    }
+  }
+
+  async function UserDelet() {
+    try {
+      await api.delete(`users/delete/${params.id}`)
+      alert("Usuário deletado com sucesso.")
+      history.push("/login")
+      return logout()
+    } catch (err) {
+      setErrorRegister(true)
+    }
   }
 
   return (
@@ -301,10 +312,26 @@ function ChangeRegister() {
                 <MessageError text="Ocorreu um erro ao registrar sua conta" />
               </div>
             )}
-            <div className="flex justify-center pt-6">
-              <ButtonPrimary type="submit">Cadastrar</ButtonPrimary>
-            </div>
+            <ButtonPrimary
+              type="submit"
+              style={{
+                width: "100%",
+              }}
+            >
+              Cadastrar
+            </ButtonPrimary>
           </form>
+          <div className="pt-6">
+            <ButtonDelet
+              type="submit"
+              style={{
+                width: "100%",
+              }}
+              onClick={() => UserDelet()}
+            >
+              Deletar conta
+            </ButtonDelet>
+          </div>
         </Container>
       </div>
     </>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { FiArrowLeft } from "react-icons/fi"
 import { useHistory } from "react-router-dom"
 import { useTheme } from "@material-ui/core/styles"
@@ -11,7 +11,6 @@ import Title from "./Title"
 import Visible from "./Visible"
 import { ButtonSecondary, ButtonInvisible } from "../components/Button"
 import { logout } from "../services/auth"
-import api from "../services/api"
 
 const SidebarShort = styled.aside`
   position: fixed;
