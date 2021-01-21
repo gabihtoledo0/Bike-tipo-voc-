@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { StyledColumn, ColumnContainer, Container } from "../components/Grid"
 import Title from "../components/Title"
 import { Small } from "../components/Text"
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import { ButtonPrimary, ButtonInvisible } from "../components/Button"
 import Input from "../components/Input"
 import { Sidebar } from "../components/Sidebar"
-import api from "../services/api"
+import api, { source } from "../services/api"
 import { useHistory } from "react-router-dom"
 import { login, idUser } from "../services/auth"
 import MessageError from "../components/MessageError"
@@ -30,6 +30,12 @@ const Login = () => {
       setErrorLogin(true)
     }
   }
+
+  useEffect(() => {
+    return () => {
+      source.cancel()
+    }
+  }, [])
 
   const theme = useTheme()
   return (

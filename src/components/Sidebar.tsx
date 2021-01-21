@@ -24,7 +24,7 @@ const SidebarShort = styled.aside`
     rgba(251, 220, 54, 1) 51%,
     rgba(251, 219, 51, 1) 100%
   );
-  z-index: 10;
+  z-index: 100;
 
   header {
     display: flex;
@@ -52,7 +52,7 @@ const SidebarShort = styled.aside`
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
     height: 100%;
     width: auto;
-    padding: 32px 24px;
+    padding: 32px 26px;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;

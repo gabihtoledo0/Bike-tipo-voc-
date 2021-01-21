@@ -6,7 +6,7 @@ import logoBike from "../assets/images/logo-64px.svg"
 import Leaflet from "leaflet"
 import { FiArrowRight } from "react-icons/fi"
 import { Link } from "react-router-dom"
-import api from "../services/api"
+import api, { source } from "../services/api"
 import "../assets/styles/pages/stylesPopup.css"
 import { SidebarLarge } from "../components/Sidebar"
 import styled from "styled-components"
@@ -63,6 +63,10 @@ function StationsMap({ isLogged }: MapProps) {
         setStations(response.data)
       })
       .catch(() => setLoading(true))
+
+    return () => {
+      source.cancel()
+    }
   }, [stations])
 
   return loading ? (

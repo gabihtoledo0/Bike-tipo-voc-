@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom"
 import Landing from "../pages/Landing"
 import StationsMap from "../pages/StationsMap"
@@ -7,6 +7,7 @@ import Login from "../pages/Login"
 import Register from "../pages/Register"
 import { isAuthenticated } from "../services/auth"
 import ChangeRegister from "../pages/ChangeRegister"
+import { source } from "../services/api"
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -23,6 +24,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const Routes = () => {
   const [raceStarted, setRaceStarted] = useState(0)
+
+  useEffect(() => {
+    return () => {
+      source.cancel()
+    }
+  }, [])
+
   return (
     <BrowserRouter>
       <Switch>

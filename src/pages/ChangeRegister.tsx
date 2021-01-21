@@ -11,7 +11,7 @@ import "react-credit-cards/es/styles-compiled.css"
 import { useTheme } from "@material-ui/core/styles"
 import "../assets/styles/pages/creditCard.css"
 import Title from "../components/Title"
-import api from "../services/api"
+import api, { source } from "../services/api"
 import { useHistory } from "react-router-dom"
 import MessageError from "../components/MessageError"
 import { useParams } from "react-router-dom"
@@ -25,7 +25,6 @@ type UsersProps = {
   password?: string
   numberCard?: any
   expiry?: any
-  cvc?: any
   nameCard?: any
 }
 
@@ -62,6 +61,9 @@ function ChangeRegister() {
     api.get(`users/${params.id}`).then((response) => {
       setUsers(response.data)
     })
+    return () => {
+      source.cancel()
+    }
   }, [params.id])
 
   if (!users) {
@@ -72,7 +74,7 @@ function ChangeRegister() {
     if (password === confPassword) {
       try {
         await api.put(`users/meus-dados/${params.id}`, data)
-        alert("Cadastro realizado com sucesso.")
+        alert("Dados atualizados com sucesso.")
         history.push("/map")
       } catch (err) {
         setErrorRegister(true)
@@ -102,7 +104,9 @@ function ChangeRegister() {
             </Title>
           </div>
           <div className="flex justify-center pb-8">
-            <Text>É rápidinho, só para entendermos melhor sobre vc ;)</Text>
+            <Text>
+              Sinta-se a vontade para trocar seus dados ou excluir sua conta ;)
+            </Text>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -201,7 +205,7 @@ function ChangeRegister() {
             ) : null}
             <div className="pt-6">
               <Cards
-                cvc={users.cvc}
+                cvc={dataCard.cvc}
                 expiry={users.expiry}
                 name={users.nameCard}
                 number={users.numberCard}
@@ -262,6 +266,7 @@ function ChangeRegister() {
                 type="text"
                 name="cvc"
                 id="inputCvc"
+                defaultValue={dataCard.cvc}
                 placeholder="Código de segurança"
                 onChange={handleInputChange}
               >
@@ -300,7 +305,7 @@ function ChangeRegister() {
               })}
             />
             {errors.nameCard && <Small>{errors.nameCard.message}</Small>}
-            <div className="pt-2">
+            <div className="pt-2 pb-6">
               <Text color={theme.colors.color.info} size="small">
                 * Ao realizar o cadastro não iremos cobrar nenhum valor no seu
                 cartão, apenas salvamos seus dados para quando precisar cobrar
@@ -309,7 +314,7 @@ function ChangeRegister() {
             </div>
             {errorRegister && (
               <div className="pt-4">
-                <MessageError text="Ocorreu um erro ao registrar sua conta" />
+                <MessageError text="Ocorreu um erro ao atualizar sua conta" />
               </div>
             )}
             <ButtonPrimary
@@ -318,10 +323,10 @@ function ChangeRegister() {
                 width: "100%",
               }}
             >
-              Cadastrar
+              Atualizar dados
             </ButtonPrimary>
           </form>
-          <div className="pt-6">
+          <div className="pt-3">
             <ButtonDelet
               type="submit"
               style={{
