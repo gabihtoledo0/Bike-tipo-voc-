@@ -5,8 +5,6 @@ const api = axios.create({
   baseURL: "http://localhost:3333",
 })
 
-export const source = axios.CancelToken.source()
-
 api.interceptors.request.use(async (config) => {
   const token = getToken()
   if (token) {

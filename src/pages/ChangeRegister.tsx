@@ -11,7 +11,7 @@ import "react-credit-cards/es/styles-compiled.css"
 import { useTheme } from "@material-ui/core/styles"
 import "../assets/styles/pages/creditCard.css"
 import Title from "../components/Title"
-import api, { source } from "../services/api"
+import api from "../services/api"
 import { useHistory } from "react-router-dom"
 import MessageError from "../components/MessageError"
 import { useParams } from "react-router-dom"
@@ -61,36 +61,33 @@ function ChangeRegister() {
     api.get(`users/${params.id}`).then((response) => {
       setUsers(response.data)
     })
-    return () => {
-      source.cancel()
-    }
   }, [params.id])
 
   if (!users) {
     return <Loader data="Carregando..." />
   }
 
-  async function onSubmit(data: any) {
+  function onSubmit(data: any) {
     if (password === confPassword) {
-      try {
-        await api.put(`users/meus-dados/${params.id}`, data)
-        alert("Dados atualizados com sucesso.")
-        history.push("/map")
-      } catch (err) {
-        setErrorRegister(true)
-      }
+      api
+        .put(`users/meus-dados/${params.id}`, data)
+        .then((response) => {
+          alert("Dados atualizados com sucesso.")
+          history.push("/map")
+        })
+        .catch(() => setErrorRegister(true))
     }
   }
 
-  async function UserDelet() {
-    try {
-      await api.delete(`users/delete/${params.id}`)
-      alert("Usuário deletado com sucesso.")
-      history.push("/login")
-      return logout()
-    } catch (err) {
-      setErrorRegister(true)
-    }
+  function UserDelet() {
+    api
+      .delete(`users/delete/${params.id}`)
+      .then(() => {
+        alert("Usuário deletado com sucesso.")
+        history.push("/login")
+        return logout()
+      })
+      .catch(() => setErrorRegister(true))
   }
 
   return (

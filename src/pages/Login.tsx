@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react"
+import React, { useState } from "react"
 import { StyledColumn, ColumnContainer, Container } from "../components/Grid"
 import Title from "../components/Title"
 import { Small } from "../components/Text"
@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form"
 import { ButtonPrimary, ButtonInvisible } from "../components/Button"
 import Input from "../components/Input"
 import { Sidebar } from "../components/Sidebar"
-import api, { source } from "../services/api"
+import api from "../services/api"
 import { useHistory } from "react-router-dom"
 import { login, idUser } from "../services/auth"
 import MessageError from "../components/MessageError"
@@ -20,22 +20,16 @@ const Login = () => {
   const [errorLogin, setErrorLogin] = useState<boolean>(false)
   const history = useHistory()
 
-  async function onSubmit(data: any) {
-    try {
-      const response = await api.post("users/login", data)
-      login(response.data.token)
-      idUser(response.data.id)
-      history.push("/map")
-    } catch (err) {
-      setErrorLogin(true)
-    }
+  function onSubmit(data: any) {
+    api
+      .post("users/login", data)
+      .then((response) => {
+        login(response.data.token)
+        idUser(response.data.id)
+        history.push("/map")
+      })
+      .catch(() => setErrorLogin(true))
   }
-
-  useEffect(() => {
-    return () => {
-      source.cancel()
-    }
-  }, [])
 
   const theme = useTheme()
   return (

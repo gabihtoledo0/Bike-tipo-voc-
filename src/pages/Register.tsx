@@ -41,15 +41,17 @@ const Register = () => {
   const [confPassword, setConfPassword] = useState<string>("")
   const [errorRegister, setErrorRegister] = useState<boolean>(false)
 
-  async function onSubmit(data: any) {
+  function onSubmit(data: any) {
     if (password === confPassword) {
-      try {
-        await api.post("users", data)
-        alert("Cadastro realizado com sucesso.")
-        history.push("/login")
-      } catch (err) {
-        setErrorRegister(true)
-      }
+      api
+        .post("users", data)
+        .then(() => {
+          alert("Cadastro realizado com sucesso.")
+          history.push("/login")
+        })
+        .catch(() => setErrorRegister(true))
+    } else {
+      setErrorRegister(true)
     }
   }
 
