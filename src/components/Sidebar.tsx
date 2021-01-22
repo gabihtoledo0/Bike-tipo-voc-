@@ -171,7 +171,6 @@ export function SidebarLarge({ isLogged }: SidebarLargeProps) {
     return logout()
   }
 
-
   return (
     <>
       <SidebarLong>
