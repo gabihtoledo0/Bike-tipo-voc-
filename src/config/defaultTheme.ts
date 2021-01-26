@@ -31,6 +31,7 @@ const defaultTheme = createMuiTheme({
     hover: {
       primary: "rgb(255, 230, 87)",
       secondary: "#7d3caf",
+      delet: "#f8d0d9",
     },
     active: {
       primary: "#fcbd1b",
@@ -40,6 +41,7 @@ const defaultTheme = createMuiTheme({
       secondary: "#945fbd",
       textPrimary: "#374151",
       inverse: "#fff",
+      delet: "#d23134",
     },
   },
   shade: {
@@ -88,6 +90,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
       hover: {
         primary: React.CSSProperties["color"]
         secondary: React.CSSProperties["color"]
+        delet: React.CSSProperties["color"]
       }
       active: {
         primary: React.CSSProperties["color"]
@@ -97,6 +100,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
         secondary: React.CSSProperties["color"]
         textPrimary: React.CSSProperties["color"]
         inverse: React.CSSProperties["color"]
+        delet: React.CSSProperties["color"]
       }
     }
     shade: {
@@ -141,6 +145,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
       hover: {
         primary: React.CSSProperties["color"]
         secondary: React.CSSProperties["color"]
+        delet: React.CSSProperties["color"]
       }
       active: {
         primary: React.CSSProperties["color"]
@@ -150,6 +155,7 @@ declare module "@material-ui/core/styles/createMuiTheme" {
         secondary: React.CSSProperties["color"]
         textPrimary: React.CSSProperties["color"]
         inverse: React.CSSProperties["color"]
+        delet: React.CSSProperties["color"]
       }
     }
     shade: {

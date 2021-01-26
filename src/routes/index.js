@@ -6,6 +6,7 @@ import CodeStation from "../pages/CodeStation"
 import Login from "../pages/Login"
 import Register from "../pages/Register"
 import { isAuthenticated } from "../services/auth"
+import ChangeRegister from "../pages/ChangeRegister"
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -22,10 +23,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 
 const Routes = () => {
   const [raceStarted, setRaceStarted] = useState(0)
+
   return (
     <BrowserRouter>
       <Switch>
         <Route path="/" exact component={Landing} />
+        <Route path="/meus-dados/:id" exact component={ChangeRegister} />
         <Route path="/preview-map" component={StationsMap} />
         <PrivateRoute path="/map" component={() => <StationsMap isLogged />} />
         <Route

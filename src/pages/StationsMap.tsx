@@ -63,7 +63,7 @@ function StationsMap({ isLogged }: MapProps) {
         setStations(response.data)
       })
       .catch(() => setLoading(true))
-  }, [stations])
+  }, [])
 
   return loading ? (
     <Loader data="Carregando..." />
