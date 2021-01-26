@@ -35,7 +35,8 @@ function CodeStation(props: any) {
   const { raceStarted, setRaceStarted } = props
   const [error, setError] = useState<boolean>(false)
   const [textError, setTextError] = useState<string>("")
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpenWithdrawal, setIsOpenWithdrawal] = useState<boolean>(false)
+  const [isOpenReturn, setIsOpenReturn] = useState<boolean>(false)
 
   useEffect(() => {
     api.get(`stations/${params.id}`).then((response) => {
@@ -54,8 +55,8 @@ function CodeStation(props: any) {
         "Você já retirou a bike em uma determinada estação, para retirar outra devolva a anterior."
       )
     } else {
-      setRaceStarted(id)
-      setIsOpen(true)
+      // setRaceStarted(id)
+      setIsOpenWithdrawal(true)
     }
   }
 
@@ -71,7 +72,7 @@ function CodeStation(props: any) {
         "Você não pode devolver a bike na mesma estação de retirada. Tente em outra estação :)"
       )
     } else {
-      setRaceStarted(0)
+      setIsOpenReturn(true)
     }
   }
 
@@ -79,9 +80,25 @@ function CodeStation(props: any) {
     return <MdDone size={24} color={theme.colors.color.success} />
   }
 
-  const footerModal = () => {
+  const footerModalWithdrawal = (id: any) => {
+    const submit = (id: any) => {
+      setRaceStarted(id)
+      history.push("/map")
+    }
     return (
-      <ButtonSecondary onClick={() => history.push("/map")}>
+      <ButtonSecondary onClick={() => submit(id)}>
+        Voltar para o mapa
+      </ButtonSecondary>
+    )
+  }
+
+  const footerModalReturn = () => {
+    const submit = () => {
+      setRaceStarted(0)
+      history.push("/map")
+    }
+    return (
+      <ButtonSecondary onClick={() => submit()}>
         Voltar para o mapa
       </ButtonSecondary>
     )
@@ -93,21 +110,21 @@ function CodeStation(props: any) {
       <div className="flex justify-center pt-12">
         <Modal
           icon={iconModal()}
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
+          isOpen={isOpenWithdrawal}
+          onClose={() => setIsOpenWithdrawal(false)}
           iconBackgroundColor={theme.backgrounds.successLight}
           title="Sucesso!"
           content="Bike retirada com sucesso, aproveite sua viagem ;)"
-          footer={footerModal()}
+          footer={footerModalWithdrawal(station.id)}
         />
         <Modal
           icon={iconModal()}
-          isOpen={isOpen}
-          onClose={() => setIsOpen(false)}
+          isOpen={isOpenReturn}
+          onClose={() => setIsOpenReturn(false)}
           iconBackgroundColor={theme.backgrounds.successLight}
           title="Sucesso!"
           content="Bike devolvida com sucesso, volte sempre ;)"
-          footer={footerModal()}
+          footer={footerModalReturn()}
         />
         <Container desktopWidth={50} tabletWidth={60} box>
           <div className="flex justify-center pb-4">
@@ -153,7 +170,7 @@ function CodeStation(props: any) {
           </div>
         </Container>
       </div>
-      <div className="absolute right-0 bottom-0">
+      <div className="absolute right-0 bottom-0 opacity-75">
         <Image src={TorontoRafiki} alt="viagem de bicicleta" width={400} />
       </div>
     </>

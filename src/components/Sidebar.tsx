@@ -24,7 +24,7 @@ const SidebarShort = styled.aside`
     rgba(251, 220, 54, 1) 51%,
     rgba(251, 219, 51, 1) 100%
   );
-  z-index: 10;
+  z-index: 100;
 
   header {
     display: flex;
@@ -52,7 +52,7 @@ const SidebarShort = styled.aside`
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
     height: 100%;
     width: auto;
-    padding: 32px 24px;
+    padding: 32px 26px;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -157,14 +157,20 @@ type SidebarLargeProps = {
   isLogged?: boolean
 }
 
+type UsersProps = {
+  id?: number
+}
+
 export function SidebarLarge({ isLogged }: SidebarLargeProps) {
   const theme = useTheme()
   const history = useHistory()
+  const idUser = localStorage.getItem("@id-user")
 
   function handleLogout() {
     history.push("/login")
     return logout()
   }
+
   return (
     <>
       <SidebarLong>
@@ -184,7 +190,7 @@ export function SidebarLarge({ isLogged }: SidebarLargeProps) {
                 <ButtonInvisible
                   variant="outlined"
                   style={{ width: "100%" }}
-                  onClick={() => history.push("/register")}
+                  onClick={() => history.push(`/meus-dados/${idUser}`)}
                   className="lg:mb-2 mr-2 lg:mr-0"
                 >
                   Meus dados

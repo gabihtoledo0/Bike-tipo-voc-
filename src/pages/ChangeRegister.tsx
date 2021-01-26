@@ -1,26 +1,44 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Sidebar } from "../components/Sidebar"
 import { Container } from "../components/Grid"
 import Input from "../components/Input"
 import Text, { Small } from "../components/Text"
 import { useForm } from "react-hook-form"
 import InputMask from "react-input-mask"
-import { ButtonPrimary, ButtonSecondary } from "../components/Button"
+import { ButtonPrimary, ButtonDelet } from "../components/Button"
 import Cards from "react-credit-cards"
 import "react-credit-cards/es/styles-compiled.css"
-import "../assets/styles/pages/creditCard.css"
 import { useTheme } from "@material-ui/core/styles"
+import "../assets/styles/pages/creditCard.css"
 import Title from "../components/Title"
 import api from "../services/api"
 import { useHistory } from "react-router-dom"
-import Modal from "../components/Modal"
-import { MdDone } from "react-icons/md"
+import MessageError from "../components/MessageError"
+import { useParams } from "react-router-dom"
+import Loader from "../components/Loader"
+import { logout } from "../services/auth"
 
-const Register = () => {
+type UsersProps = {
+  name?: string
+  email?: string
+  phone?: number
+  password?: string
+  numberCard?: any
+  expiry?: any
+  nameCard?: any
+}
+
+type UsersPropsParams = {
+  id?: string
+}
+
+function ChangeRegister() {
+  const [users, setUsers] = useState<UsersProps>()
+  const params = useParams<UsersPropsParams>()
   const { register, handleSubmit, errors } = useForm()
-
   const history = useHistory()
   const theme = useTheme()
+
   const [dataCard, setDataCard] = useState({
     cvc: "",
     expiry: "",
@@ -35,89 +53,57 @@ const Register = () => {
     })
   }
 
-  const [name, setName] = useState(sessionStorage.getItem("@name") || "")
-  const [phone, setPhone] = useState(sessionStorage.getItem("@phone") || "")
-  const [email, setEmail] = useState(sessionStorage.getItem("@email") || "")
   const [password, setPassword] = useState<string>("")
   const [confPassword, setConfPassword] = useState<string>("")
-  const [isOpenModalSucess, setIsOpenModalSucess] = useState<boolean>(false)
-  const [isOpenModalError, setIsOpenModalError] = useState<boolean>(false)
+  const [errorRegister, setErrorRegister] = useState<boolean>(false)
+
+  useEffect(() => {
+    api.get(`users/${params.id}`).then((response) => {
+      setUsers(response.data)
+    })
+  }, [params.id])
+
+  if (!users) {
+    return <Loader data="Carregando..." />
+  }
 
   function onSubmit(data: any) {
     if (password === confPassword) {
       api
-        .post("users", data)
-        .then(() => {
-          alert("Cadastro realizado com sucesso.")
-          setIsOpenModalSucess(true)
+        .put(`users/meus-dados/${params.id}`, data)
+        .then((response) => {
+          alert("Dados atualizados com sucesso.")
+          history.push("/map")
         })
-        .catch(() => setIsOpenModalError(true))
-    } else {
-      setIsOpenModalError(true)
+        .catch(() => setErrorRegister(true))
     }
   }
 
-  const iconModal = () => {
-    return <MdDone size={24} color={theme.colors.color.success} />
-  }
-
-  const footerModal = () => {
-    return (
-      <ButtonSecondary onClick={() => history.push("/login")}>
-        Entrar
-      </ButtonSecondary>
-    )
-  }
-
-  const iconModalError = () => {
-    return (
-      <svg
-        className="h-6 w-6 text-red-600"
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        aria-hidden="true"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-        />
-      </svg>
-    )
+  function UserDelet() {
+    api
+      .delete(`users/delete/${params.id}`)
+      .then(() => {
+        alert("Usuário deletado com sucesso.")
+        history.push("/login")
+        return logout()
+      })
+      .catch(() => setErrorRegister(true))
   }
 
   return (
     <>
       <Sidebar />
       <div className="flex justify-center items-center md:pt-4 pt-12 pb-4 px-4">
-        <Modal
-          icon={iconModal()}
-          isOpen={isOpenModalSucess}
-          onClose={() => setIsOpenModalSucess(false)}
-          iconBackgroundColor={theme.backgrounds.successLight}
-          title="Cadastro realizado"
-          content="Seu cadastro foi realizado com sucesso :)"
-          footer={footerModal()}
-        />
-        <Modal
-          icon={iconModalError()}
-          isOpen={isOpenModalError}
-          onClose={() => setIsOpenModalError(false)}
-          iconBackgroundColor={theme.backgrounds.errorLight}
-          title="Falha no cadastro"
-          content="Tivemos um problema ao realizar seu cadastro, verifique seus dados e tente novamente."
-        />
         <Container desktopWidth={50} tabletWidth={60} box>
           <div className="flex justify-center">
             <Title size="small" color={theme.colors.color.info}>
-              Preencha seus dados
+              Meus dados
             </Title>
           </div>
           <div className="flex justify-center pb-8">
-            <Text>É rápidinho, só para entendermos melhor sobre vc ;)</Text>
+            <Text>
+              Sinta-se a vontade para trocar seus dados ou excluir sua conta ;)
+            </Text>
           </div>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Input
@@ -127,11 +113,7 @@ const Register = () => {
               name="name"
               id="inputName"
               maxLength={100}
-              value={name}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setName(e.target.value)
-              }
-              onBlur={() => sessionStorage.setItem("@name", name)}
+              defaultValue={users.name}
               placeholder="Nome Completo"
               ref={register({
                 required: "Preencha o nome",
@@ -149,11 +131,7 @@ const Register = () => {
               name="phone"
               id="inputPhone"
               placeholder="Telefone"
-              value={phone}
-              onBlur={() => sessionStorage.setItem("@phone", phone)}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setPhone(e.target.value)
-              }
+              defaultValue={users.phone}
             >
               {(inputProps: any) => (
                 <Input
@@ -174,11 +152,7 @@ const Register = () => {
               id="inputEmail"
               maxLength={100}
               placeholder="Email"
-              value={email}
-              onBlur={() => sessionStorage.setItem("@email", email)}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setEmail(e.target.value)
-              }
+              defaultValue={users.email}
               ref={register({
                 required: "Preencha o email",
                 pattern: {
@@ -194,7 +168,7 @@ const Register = () => {
               name="password"
               id="inputPassword"
               placeholder="Senha"
-              value={password}
+              defaultValue={password}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setPassword(e.target.value)
               }
@@ -213,7 +187,7 @@ const Register = () => {
               name="confSenha"
               id="inputConfPassword"
               placeholder="Confirme sua senha"
-              value={confPassword}
+              defaultValue={confPassword}
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setConfPassword(e.target.value)
               }
@@ -229,9 +203,9 @@ const Register = () => {
             <div className="pt-6">
               <Cards
                 cvc={dataCard.cvc}
-                expiry={dataCard.expiry}
-                name={dataCard.nameCard}
-                number={dataCard.numberCard}
+                expiry={users.expiry}
+                name={users.nameCard}
+                number={users.numberCard}
               />
             </div>
             <InputMask
@@ -239,9 +213,10 @@ const Register = () => {
               autoComplete="nope"
               type="tel"
               name="numberCard"
+              id="inputNumberCard"
               placeholder="Número do cartão"
               onChange={handleInputChange}
-              value={dataCard.numberCard}
+              defaultValue={users.numberCard}
             >
               {(inputProps: any) => (
                 <Input
@@ -266,7 +241,7 @@ const Register = () => {
                 id="inputExpiry"
                 placeholder="Validade do cartão"
                 onChange={handleInputChange}
-                value={dataCard.expiry}
+                defaultValue={users.expiry}
               >
                 {(inputProps: any) => (
                   <Input
@@ -288,6 +263,7 @@ const Register = () => {
                 type="text"
                 name="cvc"
                 id="inputCvc"
+                defaultValue={dataCard.cvc}
                 placeholder="Código de segurança"
                 onChange={handleInputChange}
               >
@@ -316,7 +292,7 @@ const Register = () => {
               maxLength={100}
               placeholder="Nome impresso no cartão"
               onChange={handleInputChange}
-              value={dataCard.nameCard}
+              defaultValue={users.nameCard}
               ref={register({
                 required: "Preencha o nome impresso no cartão",
                 pattern: {
@@ -326,21 +302,42 @@ const Register = () => {
               })}
             />
             {errors.nameCard && <Small>{errors.nameCard.message}</Small>}
-            <div className="pt-2">
+            <div className="pt-2 pb-6">
               <Text color={theme.colors.color.info} size="small">
                 * Ao realizar o cadastro não iremos cobrar nenhum valor no seu
                 cartão, apenas salvamos seus dados para quando precisar cobrar
                 mensalmente ;)
               </Text>
             </div>
-            <div className="flex justify-center pt-6">
-              <ButtonPrimary type="submit">Cadastrar</ButtonPrimary>
-            </div>
+            {errorRegister && (
+              <div className="pt-4">
+                <MessageError text="Ocorreu um erro ao atualizar sua conta" />
+              </div>
+            )}
+            <ButtonPrimary
+              type="submit"
+              style={{
+                width: "100%",
+              }}
+            >
+              Atualizar dados
+            </ButtonPrimary>
           </form>
+          <div className="pt-3">
+            <ButtonDelet
+              type="submit"
+              style={{
+                width: "100%",
+              }}
+              onClick={() => UserDelet()}
+            >
+              Deletar conta
+            </ButtonDelet>
+          </div>
         </Container>
       </div>
     </>
   )
 }
 
-export default Register
+export default ChangeRegister

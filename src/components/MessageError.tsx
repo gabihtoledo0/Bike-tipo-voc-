@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "styled-components"
-import ErrorIcon from "@material-ui/icons/Error"
+import { MdError } from "react-icons/md"
 import Text from "../components/Text"
 import { useTheme } from "@material-ui/core/styles"
 
@@ -25,7 +25,7 @@ function MessageError({ text }: BoxErrorProps) {
   return (
     <MessageErrorStyle>
       <div className="flex flex-row">
-        <ErrorIcon style={{ color: theme.colors.color.error }} />
+        <MdError style={{ color: theme.colors.color.error }} />
         <div className="pl-2">
           <Text size="small" color={theme.colors.color.error}>
             {text}

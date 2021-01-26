@@ -30,6 +30,7 @@ const Landing = () => {
             alt="logo bike tipo vc"
             width={160}
             tabletWidth={260}
+            desktopWidth={360}
           />
           <main>
             <div className="text-landing">
