@@ -32,11 +32,43 @@ function CodeStation(props: any) {
   const history = useHistory()
   const params = useParams<StationPropsParams>()
   const [station, setStation] = useState<StationProps>()
-  const { raceStarted, setRaceStarted } = props
   const [error, setError] = useState<boolean>(false)
   const [textError, setTextError] = useState<string>("")
   const [isOpenWithdrawal, setIsOpenWithdrawal] = useState<boolean>(false)
   const [isOpenReturn, setIsOpenReturn] = useState<boolean>(false)
+  const id_user = localStorage.getItem("@id-user")
+
+  const now = new Date()
+  const monName = new Array(
+    "janeiro",
+    "fevereiro",
+    "março",
+    "abril",
+    "maio",
+    "junho",
+    "agosto",
+    "outubro",
+    "novembro",
+    "dezembro"
+  )
+
+  const initial_date =
+    now.getDate() +
+    " de " +
+    monName[now.getMonth()] +
+    " de " +
+    now.getFullYear()
+
+  const initial_time = now.getHours() + ":" + now.getMinutes()
+
+  const finish_date =
+    now.getDate() +
+    " de " +
+    monName[now.getMonth()] +
+    " de " +
+    now.getFullYear()
+
+  const finish_time = now.getHours() + ":" + now.getMinutes()
 
   useEffect(() => {
     api.get(`stations/${params.id}`).then((response) => {
@@ -48,32 +80,54 @@ function CodeStation(props: any) {
     return <Loader data="Carregando..." />
   }
 
-  const withdrawalBike = (id: any) => {
-    if (raceStarted !== 0) {
-      setError(true)
-      setTextError(
-        "Você já retirou a bike em uma determinada estação, para retirar outra devolva a anterior."
-      )
-    } else {
-      // setRaceStarted(id)
-      setIsOpenWithdrawal(true)
+  const withdrawalBike = (id_initial_station: any, name_station: any) => {
+    const data = {
+      id_user,
+      id_initial_station,
+      name_station,
+      initial_date,
+      initial_time,
+      finish_time: "",
     }
+    api
+      .post("travels", data)
+      .then((response) => {
+        const idTravel = response.data.id
+        setIsOpenWithdrawal(true)
+      })
+      .catch(() => {
+        setError(true)
+        setTextError(
+          "Você já retirou a bike em uma determinada estação, para retirar outra devolva a anterior."
+        )
+      })
   }
 
-  const returnBike = (id: any) => {
-    if (raceStarted === 0) {
-      setError(true)
-      setTextError(
-        "Você ainda não retirou uma bike para fazer a devolução da mesma."
-      )
-    } else if (raceStarted === id) {
-      setError(true)
-      setTextError(
-        "Você não pode devolver a bike na mesma estação de retirada. Tente em outra estação :)"
-      )
-    } else {
-      setIsOpenReturn(true)
+  const returnBike = (id_finished_station: any, idTravel: number) => {
+    const data = {
+      id_finished_station,
+      finish_date,
+      finish_time,
     }
+
+    api
+      .put(`travels/finalizar-viagem/${idTravel}`, data)
+      .then(() => {
+        setIsOpenReturn(true)
+      })
+      .catch((response) => {
+        if (response!.status === 400) {
+          setError(true)
+          setTextError(
+            "Você ainda não retirou uma bike para fazer a devolução da mesma."
+          )
+        } else {
+          setError(true)
+          setTextError(
+            "Você não pode devolver a bike na mesma estação de retirada. Tente em outra estação :)"
+          )
+        }
+      })
   }
 
   const iconModal = () => {
@@ -82,7 +136,7 @@ function CodeStation(props: any) {
 
   const footerModalWithdrawal = (id: any) => {
     const submit = (id: any) => {
-      setRaceStarted(id)
+      // setRaceStarted(id)
       history.push("/map")
     }
     return (
@@ -94,7 +148,7 @@ function CodeStation(props: any) {
 
   const footerModalReturn = () => {
     const submit = () => {
-      setRaceStarted(0)
+      // setRaceStarted(0)
       history.push("/map")
     }
     return (
@@ -155,7 +209,7 @@ function CodeStation(props: any) {
               style={{
                 width: "48%",
               }}
-              onClick={() => withdrawalBike(station.id)}
+              onClick={() => withdrawalBike(station.id, station.name)}
             >
               Retirado bike
             </ButtonSecondary>
@@ -163,7 +217,7 @@ function CodeStation(props: any) {
               style={{
                 width: "48%",
               }}
-              onClick={() => returnBike(station.id)}
+              onClick={() => returnBike(station.id, idTravel)}
             >
               Devolver bike
             </ButtonPrimary>
