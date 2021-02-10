@@ -39,7 +39,7 @@ function CodeStation() {
   const id_user = localStorage.getItem("@id-user")
 
   const now = new Date()
-  const monName = new Array(
+  const monName = [
     "janeiro",
     "fevereiro",
     "março",
@@ -49,8 +49,8 @@ function CodeStation() {
     "agosto",
     "outubro",
     "novembro",
-    "dezembro"
-  )
+    "dezembro",
+  ]
 
   const initial_date =
     now.getDate() +
@@ -159,7 +159,6 @@ function CodeStation() {
 
   const footerModalWithdrawal = (id: any) => {
     const submit = (id: any) => {
-      // setRaceStarted(id)
       history.push("/map")
     }
     return (
@@ -171,7 +170,6 @@ function CodeStation() {
 
   const footerModalReturn = () => {
     const submit = () => {
-      // setRaceStarted(0)
       history.push("/map")
     }
     return (
