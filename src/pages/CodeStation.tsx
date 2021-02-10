@@ -27,7 +27,7 @@ type StationPropsParams = {
   id: string
 }
 
-function CodeStation(props: any) {
+function CodeStation() {
   const theme = useTheme()
   const history = useHistory()
   const params = useParams<StationPropsParams>()
@@ -80,6 +80,30 @@ function CodeStation(props: any) {
     return <Loader data="Carregando..." />
   }
 
+  const removedBike = () => {
+    api
+      .put(`stations/removed-bike/${station.id}`)
+      .then(() => {
+        setIsOpenWithdrawal(true)
+      })
+      .catch(() => {
+        setError(true)
+        setTextError("Algo deu errado")
+      })
+  }
+
+  const addingBike = () => {
+    api
+      .put(`stations/adding-bike/${station.id}`)
+      .then(() => {
+        setIsOpenReturn(true)
+      })
+      .catch(() => {
+        setError(true)
+        setTextError("Algo deu errado")
+      })
+  }
+
   const withdrawalBike = (id_initial_station: any, name_station: any) => {
     const data = {
       id_user,
@@ -91,9 +115,8 @@ function CodeStation(props: any) {
     }
     api
       .post("travels", data)
-      .then((response) => {
-        const idTravel = response.data.id
-        setIsOpenWithdrawal(true)
+      .then(() => {
+        removedBike()
       })
       .catch(() => {
         setError(true)
@@ -103,7 +126,7 @@ function CodeStation(props: any) {
       })
   }
 
-  const returnBike = (id_finished_station: any, idTravel: number) => {
+  const returnBike = (id_finished_station: any) => {
     const data = {
       id_finished_station,
       finish_date,
@@ -111,12 +134,13 @@ function CodeStation(props: any) {
     }
 
     api
-      .put(`travels/finalizar-viagem/${idTravel}`, data)
+      .put(`travels/finalizar-viagem/${id_user}`, data)
       .then(() => {
-        setIsOpenReturn(true)
+        addingBike()
       })
-      .catch((response) => {
-        if (response!.status === 400) {
+      .catch((error) => {
+        console.log(error.response.status)
+        if (error.response.status === 400) {
           setError(true)
           setTextError(
             "Você ainda não retirou uma bike para fazer a devolução da mesma."
@@ -217,7 +241,7 @@ function CodeStation(props: any) {
               style={{
                 width: "48%",
               }}
-              onClick={() => returnBike(station.id, idTravel)}
+              onClick={() => returnBike(station.id)}
             >
               Devolver bike
             </ButtonPrimary>
