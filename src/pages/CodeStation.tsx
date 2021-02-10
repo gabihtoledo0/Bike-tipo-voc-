@@ -139,7 +139,6 @@ function CodeStation() {
         addingBike()
       })
       .catch((error) => {
-        console.log(error.response.status)
         if (error.response.status === 400) {
           setError(true)
           setTextError(
