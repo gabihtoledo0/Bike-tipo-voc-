@@ -12,6 +12,8 @@ import TorontoRafiki from "../assets/images/Toronto-rafiki.svg"
 import { useTheme } from "@material-ui/core/styles"
 import { useHistory } from "react-router-dom"
 import MessageError from "../components/MessageError"
+import Modal from "../components/Modal"
+import { MdDone } from "react-icons/md"
 
 type StationProps = {
   id?: number
@@ -25,14 +27,48 @@ type StationPropsParams = {
   id: string
 }
 
-function CodeStation(props: any) {
+function CodeStation() {
   const theme = useTheme()
   const history = useHistory()
   const params = useParams<StationPropsParams>()
   const [station, setStation] = useState<StationProps>()
-  const { raceStarted, setRaceStarted } = props
   const [error, setError] = useState<boolean>(false)
   const [textError, setTextError] = useState<string>("")
+  const [isOpenWithdrawal, setIsOpenWithdrawal] = useState<boolean>(false)
+  const [isOpenReturn, setIsOpenReturn] = useState<boolean>(false)
+  const id_user = localStorage.getItem("@id-user")
+
+  const now = new Date()
+  const monName = [
+    "janeiro",
+    "fevereiro",
+    "março",
+    "abril",
+    "maio",
+    "junho",
+    "agosto",
+    "outubro",
+    "novembro",
+    "dezembro",
+  ]
+
+  const initial_date =
+    now.getDate() +
+    " de " +
+    monName[now.getMonth()] +
+    " de " +
+    now.getFullYear()
+
+  const initial_time = now.getHours() + ":" + now.getMinutes()
+
+  const finish_date =
+    now.getDate() +
+    " de " +
+    monName[now.getMonth()] +
+    " de " +
+    now.getFullYear()
+
+  const finish_time = now.getHours() + ":" + now.getMinutes()
 
   useEffect(() => {
     api.get(`stations/${params.id}`).then((response) => {
@@ -44,39 +80,127 @@ function CodeStation(props: any) {
     return <Loader data="Carregando..." />
   }
 
-  const withdrawalBike = (id: any) => {
-    if (raceStarted !== 0) {
-      setError(true)
-      setTextError(
-        "Você já retirou a bike em uma determinada estação, para retirar outra devolva a anterior."
-      )
-    } else {
-      setRaceStarted(id)
-      history.push("/map")
-    }
+  const removedBike = () => {
+    api
+      .put(`stations/removed-bike/${station.id}`)
+      .then(() => {
+        setIsOpenWithdrawal(true)
+      })
+      .catch(() => {
+        setError(true)
+        setTextError("Algo deu errado")
+      })
   }
 
-  const returnBike = (id: any) => {
-    if (raceStarted === 0) {
-      setError(true)
-      setTextError(
-        "Você ainda não retirou uma bike para fazer a devolução da mesma."
-      )
-    } else if (raceStarted === id) {
-      setError(true)
-      setTextError(
-        "Você não pode devolver a bike na mesma estação de retirada. Tente em outra estação :)"
-      )
-    } else {
-      setRaceStarted(0)
+  const addingBike = () => {
+    api
+      .put(`stations/adding-bike/${station.id}`)
+      .then(() => {
+        setIsOpenReturn(true)
+      })
+      .catch(() => {
+        setError(true)
+        setTextError("Algo deu errado")
+      })
+  }
+
+  const withdrawalBike = (id_initial_station: any, name_station: any) => {
+    const data = {
+      id_user,
+      id_initial_station,
+      name_station,
+      initial_date,
+      initial_time,
+      finish_time: "",
+    }
+    api
+      .post("travels", data)
+      .then(() => {
+        removedBike()
+      })
+      .catch(() => {
+        setError(true)
+        setTextError(
+          "Você já retirou a bike em uma determinada estação, para retirar outra devolva a anterior."
+        )
+      })
+  }
+
+  const returnBike = (id_finished_station: any) => {
+    const data = {
+      id_finished_station,
+      finish_date,
+      finish_time,
+    }
+
+    api
+      .put(`travels/finalizar-viagem/${id_user}`, data)
+      .then(() => {
+        addingBike()
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          setError(true)
+          setTextError(
+            "Você ainda não retirou uma bike para fazer a devolução da mesma."
+          )
+        } else {
+          setError(true)
+          setTextError(
+            "Você não pode devolver a bike na mesma estação de retirada. Tente em outra estação :)"
+          )
+        }
+      })
+  }
+
+  const iconModal = () => {
+    return <MdDone size={24} color={theme.colors.color.success} />
+  }
+
+  const footerModalWithdrawal = (id: any) => {
+    const submit = (id: any) => {
       history.push("/map")
     }
+    return (
+      <ButtonSecondary onClick={() => submit(id)}>
+        Voltar para o mapa
+      </ButtonSecondary>
+    )
+  }
+
+  const footerModalReturn = () => {
+    const submit = () => {
+      history.push("/map")
+    }
+    return (
+      <ButtonSecondary onClick={() => submit()}>
+        Voltar para o mapa
+      </ButtonSecondary>
+    )
   }
 
   return (
     <>
       <Sidebar />
       <div className="flex justify-center pt-12">
+        <Modal
+          icon={iconModal()}
+          isOpen={isOpenWithdrawal}
+          onClose={() => setIsOpenWithdrawal(false)}
+          iconBackgroundColor={theme.backgrounds.successLight}
+          title="Sucesso!"
+          content="Bike retirada com sucesso, aproveite sua viagem ;)"
+          footer={footerModalWithdrawal(station.id)}
+        />
+        <Modal
+          icon={iconModal()}
+          isOpen={isOpenReturn}
+          onClose={() => setIsOpenReturn(false)}
+          iconBackgroundColor={theme.backgrounds.successLight}
+          title="Sucesso!"
+          content="Bike devolvida com sucesso, volte sempre ;)"
+          footer={footerModalReturn()}
+        />
         <Container desktopWidth={50} tabletWidth={60} box>
           <div className="flex justify-center pb-4">
             <Text
@@ -106,7 +230,7 @@ function CodeStation(props: any) {
               style={{
                 width: "48%",
               }}
-              onClick={() => withdrawalBike(station.id)}
+              onClick={() => withdrawalBike(station.id, station.name)}
             >
               Retirado bike
             </ButtonSecondary>

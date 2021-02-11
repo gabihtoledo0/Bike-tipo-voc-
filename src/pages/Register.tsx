@@ -5,15 +5,16 @@ import Input from "../components/Input"
 import Text, { Small } from "../components/Text"
 import { useForm } from "react-hook-form"
 import InputMask from "react-input-mask"
-import { ButtonPrimary } from "../components/Button"
+import { ButtonPrimary, ButtonSecondary } from "../components/Button"
 import Cards from "react-credit-cards"
 import "react-credit-cards/es/styles-compiled.css"
-import { useTheme } from "@material-ui/core/styles"
 import "../assets/styles/pages/creditCard.css"
+import { useTheme } from "@material-ui/core/styles"
 import Title from "../components/Title"
 import api from "../services/api"
 import { useHistory } from "react-router-dom"
-import MessageError from "../components/MessageError"
+import Modal from "../components/Modal"
+import { MdDone } from "react-icons/md"
 
 const Register = () => {
   const { register, handleSubmit, errors } = useForm()
@@ -39,7 +40,8 @@ const Register = () => {
   const [email, setEmail] = useState(sessionStorage.getItem("@email") || "")
   const [password, setPassword] = useState<string>("")
   const [confPassword, setConfPassword] = useState<string>("")
-  const [errorRegister, setErrorRegister] = useState<boolean>(false)
+  const [isOpenModalSucess, setIsOpenModalSucess] = useState<boolean>(false)
+  const [isOpenModalError, setIsOpenModalError] = useState<boolean>(false)
 
   function onSubmit(data: any) {
     if (password === confPassword) {
@@ -47,18 +49,67 @@ const Register = () => {
         .post("users", data)
         .then(() => {
           alert("Cadastro realizado com sucesso.")
-          history.push("/login")
+          setIsOpenModalSucess(true)
         })
-        .catch(() => setErrorRegister(true))
+        .catch(() => setIsOpenModalError(true))
     } else {
-      setErrorRegister(true)
+      setIsOpenModalError(true)
     }
+  }
+
+  const iconModal = () => {
+    return <MdDone size={24} color={theme.colors.color.success} />
+  }
+
+  const footerModal = () => {
+    return (
+      <ButtonSecondary onClick={() => history.push("/login")}>
+        Entrar
+      </ButtonSecondary>
+    )
+  }
+
+  const iconModalError = () => {
+    return (
+      <svg
+        className="h-6 w-6 text-red-600"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+        aria-hidden="true"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+        />
+      </svg>
+    )
   }
 
   return (
     <>
       <Sidebar />
       <div className="flex justify-center items-center md:pt-4 pt-12 pb-4 px-4">
+        <Modal
+          icon={iconModal()}
+          isOpen={isOpenModalSucess}
+          onClose={() => setIsOpenModalSucess(false)}
+          iconBackgroundColor={theme.backgrounds.successLight}
+          title="Cadastro realizado"
+          content="Seu cadastro foi realizado com sucesso :)"
+          footer={footerModal()}
+        />
+        <Modal
+          icon={iconModalError()}
+          isOpen={isOpenModalError}
+          onClose={() => setIsOpenModalError(false)}
+          iconBackgroundColor={theme.backgrounds.errorLight}
+          title="Falha no cadastro"
+          content="Tivemos um problema ao realizar seu cadastro, verifique seus dados e tente novamente."
+        />
         <Container desktopWidth={50} tabletWidth={60} box>
           <div className="flex justify-center">
             <Title size="small" color={theme.colors.color.info}>
@@ -188,7 +239,6 @@ const Register = () => {
               autoComplete="nope"
               type="tel"
               name="numberCard"
-              id="inputNumberCard"
               placeholder="Número do cartão"
               onChange={handleInputChange}
               value={dataCard.numberCard}
@@ -283,11 +333,6 @@ const Register = () => {
                 mensalmente ;)
               </Text>
             </div>
-            {errorRegister && (
-              <div className="pt-4">
-                <MessageError text="Ocorreu um erro ao registrar sua conta" />
-              </div>
-            )}
             <div className="flex justify-center pt-6">
               <ButtonPrimary type="submit">Cadastrar</ButtonPrimary>
             </div>
