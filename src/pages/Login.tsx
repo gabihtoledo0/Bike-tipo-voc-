@@ -4,7 +4,7 @@ import Title from "../components/Title"
 import { Small } from "../components/Text"
 import Image from "../components/Image"
 import CellPhoneLogin from "../assets/images/login.svg"
-import { useTheme } from "@material-ui/core/styles"
+import { ThemeContext } from "styled-components"
 import { useForm } from "react-hook-form"
 import { ButtonPrimary, ButtonInvisible } from "../components/Button"
 import Input from "../components/Input"
@@ -31,7 +31,7 @@ const Login = () => {
       .catch(() => setErrorLogin(true))
   }
 
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
   return (
     <>
       <Sidebar />
@@ -110,7 +110,10 @@ const Login = () => {
                   </div>
                 </form>
                 <div className="pt-4 flex justify-center">
-                  <ButtonInvisible onClick={() => history.push("/register")}>
+                  <ButtonInvisible
+                    variant="outlined"
+                    onClick={() => history.push("/register")}
+                  >
                     Cadastre-se
                   </ButtonInvisible>
                 </div>

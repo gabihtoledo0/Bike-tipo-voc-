@@ -9,7 +9,7 @@ import Loader from "../components/Loader"
 import Image from "../components/Image"
 import { ButtonSecondary, ButtonPrimary } from "../components/Button"
 import TorontoRafiki from "../assets/images/Toronto-rafiki.svg"
-import { useTheme } from "@material-ui/core/styles"
+import { ThemeContext } from "styled-components"
 import { useHistory } from "react-router-dom"
 import MessageError from "../components/MessageError"
 import Modal from "../components/Modal"
@@ -28,7 +28,7 @@ type StationPropsParams = {
 }
 
 function CodeStation() {
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
   const history = useHistory()
   const params = useParams<StationPropsParams>()
   const [station, setStation] = useState<StationProps>()

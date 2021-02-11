@@ -1,9 +1,8 @@
 import React from "react"
 import { FiArrowLeft } from "react-icons/fi"
 import { useHistory } from "react-router-dom"
-import { useTheme } from "@material-ui/core/styles"
 import logoBike from "../assets/images/logo-64px.svg"
-import styled from "styled-components"
+import styled, { ThemeContext } from "styled-components"
 import tokens from "../config/tokens"
 import Image from "./Image"
 import Text from "./Text"
@@ -157,12 +156,8 @@ type SidebarLargeProps = {
   isLogged?: boolean
 }
 
-type UsersProps = {
-  id?: number
-}
-
 export function SidebarLarge({ isLogged }: SidebarLargeProps) {
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
   const history = useHistory()
   const idUser = localStorage.getItem("@id-user")
 
@@ -187,14 +182,15 @@ export function SidebarLarge({ isLogged }: SidebarLargeProps) {
             </div>
             {isLogged ? (
               <div className="flex h-10 lg:h-16 text-center lg:flex-col sm:flex-row absolute right-0 mr-4 lg:mr-0 lg:relative">
-                <ButtonInvisible
-                  variant="outlined"
-                  style={{ width: "100%" }}
-                  onClick={() => history.push(`/meus-dados/${idUser}`)}
-                  className="lg:mb-2 mr-2 lg:mr-0"
-                >
-                  Meus dados
-                </ButtonInvisible>
+                <div className="lg:mb-2 mr-2 lg:mr-0">
+                  <ButtonInvisible
+                    variant="outlined"
+                    style={{ width: "100%", height: "100%" }}
+                    onClick={() => history.push(`/meus-dados/${idUser}`)}
+                  >
+                    Meus dados
+                  </ButtonInvisible>
+                </div>
                 <ButtonSecondary
                   style={{
                     width: "100%",
@@ -207,14 +203,15 @@ export function SidebarLarge({ isLogged }: SidebarLargeProps) {
               </div>
             ) : (
               <div className="flex h-10 lg:h-16 text-center lg:flex-col sm:flex-row absolute right-0 mr-4 lg:mr-0 lg:relative">
-                <ButtonInvisible
-                  variant="outlined"
-                  style={{ width: "100%" }}
-                  onClick={() => history.push("/register")}
-                  className="lg:mb-2 mr-2 lg:mr-0"
-                >
-                  Cadastre-se
-                </ButtonInvisible>
+                <div className="lg:mb-2 mr-2 lg:mr-0">
+                  <ButtonInvisible
+                    variant="outlined"
+                    style={{ width: "100%", height: "100%" }}
+                    onClick={() => history.push("/register")}
+                  >
+                    Cadastre-se
+                  </ButtonInvisible>
+                </div>
                 <ButtonSecondary
                   style={{
                     width: "100%",

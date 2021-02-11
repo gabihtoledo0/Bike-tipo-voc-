@@ -1,5 +1,5 @@
 import React from "react"
-import { useTheme } from "@material-ui/core/styles"
+import { ThemeContext } from "styled-components"
 import Text from "../components/Text"
 import { CircularProgress } from "@material-ui/core"
 
@@ -8,7 +8,7 @@ interface LoaderProps {
 }
 
 const Loader = ({ data }: LoaderProps) => {
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
 
   return (
     <div

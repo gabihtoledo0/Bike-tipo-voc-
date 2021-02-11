@@ -5,10 +5,10 @@ import Input from "../components/Input"
 import Text, { Small } from "../components/Text"
 import { useForm } from "react-hook-form"
 import InputMask from "react-input-mask"
-import { ButtonPrimary, ButtonDelet } from "../components/Button"
+import { ButtonPrimary, ButtonDelete } from "../components/Button"
 import Cards from "react-credit-cards"
 import "react-credit-cards/es/styles-compiled.css"
-import { useTheme } from "@material-ui/core/styles"
+import { ThemeContext } from "styled-components"
 import "../assets/styles/pages/creditCard.css"
 import Title from "../components/Title"
 import api from "../services/api"
@@ -37,7 +37,7 @@ function ChangeRegister() {
   const params = useParams<UsersPropsParams>()
   const { register, handleSubmit, errors } = useForm()
   const history = useHistory()
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
 
   const [dataCard, setDataCard] = useState({
     cvc: "",
@@ -71,7 +71,7 @@ function ChangeRegister() {
     if (password === confPassword) {
       api
         .put(`users/meus-dados/${params.id}`, data)
-        .then((response) => {
+        .then(() => {
           alert("Dados atualizados com sucesso.")
           history.push("/map")
         })
@@ -79,7 +79,7 @@ function ChangeRegister() {
     }
   }
 
-  function UserDelet() {
+  function UserDelete() {
     api
       .delete(`users/delete/${params.id}`)
       .then(() => {
@@ -324,15 +324,15 @@ function ChangeRegister() {
             </ButtonPrimary>
           </form>
           <div className="pt-3">
-            <ButtonDelet
+            <ButtonDelete
               type="submit"
               style={{
                 width: "100%",
               }}
-              onClick={() => UserDelet()}
+              onClick={() => UserDelete()}
             >
               Deletar conta
-            </ButtonDelet>
+            </ButtonDelete>
           </div>
         </Container>
       </div>

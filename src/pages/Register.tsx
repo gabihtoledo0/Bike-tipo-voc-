@@ -9,7 +9,7 @@ import { ButtonPrimary, ButtonSecondary } from "../components/Button"
 import Cards from "react-credit-cards"
 import "react-credit-cards/es/styles-compiled.css"
 import "../assets/styles/pages/creditCard.css"
-import { useTheme } from "@material-ui/core/styles"
+import { ThemeContext } from "styled-components"
 import Title from "../components/Title"
 import api from "../services/api"
 import { useHistory } from "react-router-dom"
@@ -20,7 +20,7 @@ const Register = () => {
   const { register, handleSubmit, errors } = useForm()
 
   const history = useHistory()
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
   const [dataCard, setDataCard] = useState({
     cvc: "",
     expiry: "",

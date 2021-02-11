@@ -1,8 +1,7 @@
 import React from "react"
-import styled from "styled-components"
+import styled, { ThemeContext } from "styled-components"
 import { MdError } from "react-icons/md"
 import Text from "../components/Text"
-import { useTheme } from "@material-ui/core/styles"
 
 const MessageErrorStyle = styled.div`
   ${({ theme }) => `
@@ -20,7 +19,7 @@ type BoxErrorProps = {
 }
 
 function MessageError({ text }: BoxErrorProps) {
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
 
   return (
     <MessageErrorStyle>

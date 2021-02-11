@@ -1,6 +1,6 @@
 import React from "react"
 import { MdClose } from "react-icons/md"
-import { useTheme } from "@material-ui/core/styles"
+import { ThemeContext } from "styled-components"
 
 type ModalProps = {
   title: string
@@ -21,7 +21,7 @@ export default function Modal({
   isOpen,
   onClose,
 }: ModalProps) {
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
 
   return isOpen ? (
     <div className="fixed z-20 inset-0 overflow-y-auto">

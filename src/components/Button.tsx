@@ -35,9 +35,9 @@ export const ButtonSecondary = withStyles({
   },
 })(Button)
 
-export const ButtonDelet = withStyles({
+export const ButtonDelete = withStyles({
   root: {
-    backgroundColor: `${theme.colors.button.delet}`,
+    backgroundColor: `${theme.colors.button.delete}`,
     color: `${theme.colors.button.inverse}`,
     fontSize: "12px",
     width: "120px",
@@ -46,7 +46,7 @@ export const ButtonDelet = withStyles({
     fontWeight: "bold",
     borderRadius: "5px",
     "&:hover": {
-      backgroundColor: `${theme.colors.hover.delet}`,
+      backgroundColor: `${theme.colors.hover.delete}`,
     },
   },
 })(Button)

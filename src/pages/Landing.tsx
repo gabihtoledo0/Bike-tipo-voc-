@@ -1,5 +1,5 @@
 import React from "react"
-import { useTheme } from "@material-ui/core/styles"
+import { ThemeContext } from "styled-components"
 import { BsChevronDoubleDown } from "react-icons/bs"
 import LogoBikeText from "../assets/images/bike-tipo-vc.svg"
 import Ride from "../assets/images/ride.svg"
@@ -15,7 +15,7 @@ import { ButtonPrimary } from "../components/Button"
 import { Link } from "react-router-dom"
 
 const Landing = () => {
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
 
   const scrollWin = () => {
     window.scrollTo(0, document.body.scrollHeight)

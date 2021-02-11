@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { useTheme } from "@material-ui/core/styles"
 import { Map, TileLayer, Marker, Popup } from "react-leaflet"
 import "leaflet/dist/leaflet.css"
 import logoBike from "../assets/images/logo-64px.svg"
@@ -9,7 +8,7 @@ import { Link } from "react-router-dom"
 import api from "../services/api"
 import "../assets/styles/pages/stylesPopup.css"
 import { SidebarLarge } from "../components/Sidebar"
-import styled from "styled-components"
+import styled, { ThemeContext } from "styled-components"
 import tokens from "../config/tokens"
 import Loader from "../components/Loader"
 import BicycleParked from "../assets/images/bicycle-parked32x.png"
@@ -54,7 +53,7 @@ const PageMap = styled.div`
 function StationsMap({ isLogged }: MapProps) {
   const [stations, setStations] = useState<StationsProps[]>([])
   const [loading, setLoading] = useState<boolean>(false)
-  const theme = useTheme()
+  const theme = React.useContext(ThemeContext)
 
   useEffect(() => {
     api
