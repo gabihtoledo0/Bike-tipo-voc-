@@ -12,8 +12,8 @@ type StyledImageProps = {
 }
 
 const StyledImage = styled.img<StyledImageProps>`
-  width: ${(props) => props.width}px;
-  height: ${(props) => props.height}px;
+  width: ${(props) => props.width ? props.width : "auto"}px;
+  height: ${(props) => props.height ? props.height : "auto"}px;
 
   @media screen and (min-width: ${tokens.breakpoints.tablet}px) {
     width: ${(props) =>

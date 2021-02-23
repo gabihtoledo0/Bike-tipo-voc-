@@ -1,5 +1,0 @@
-{
-  "god.tsconfig": "./tsconfig.json",
-  "editor.formatOnPaste": true,
-  "editor.formatOnSave": true,
-}
